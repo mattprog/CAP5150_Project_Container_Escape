@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: escape-target
+  labels:
+    app.kubernetes.io/name: escape-target
+    app.kubernetes.io/part-of: container-escape-study
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: escape-target
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: escape-target
+        app.kubernetes.io/part-of: container-escape-study
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: target
+          image: alpine:3.20.10 # alpine:3.24.2
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - |
+              printf 'container-escape-study-ok\n' > /www/index.html
+              exec busybox httpd -f -p "$HTTP_PORT" -h /www
+          env:
+            - name: HTTP_PORT
+              value: "8080"
+          volumeMounts:
+            - name: web-content
+              mountPath: /www
+              readOnly: false
+          securityContext:
+            privileged: false
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+      volumes:
+        - name: web-content
+          emptyDir: {}

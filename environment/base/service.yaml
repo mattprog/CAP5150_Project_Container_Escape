@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: escape-target
+  labels:
+    app.kubernetes.io/part-of: container-escape-study
+spec:
+  selector:
+    app.kubernetes.io/name: escape-target
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080

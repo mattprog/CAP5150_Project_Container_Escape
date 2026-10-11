@@ -1,0 +1,4 @@
+2026-10-11T17:13:44-04:00	INFO	[misconfig] Misconfiguration scanning is enabled
+2026-10-11T17:13:44-04:00	INFO	[checks-client] No downloadable checks were loaded as --skip-check-update is enabled, loading from existing cache...
+2026-10-11T17:13:44-04:00	ERROR	[misconfig] Falling back to embedded checks	err="failed to check cache: cache does not exist at \"/home/matt/.cache/trivy/policy/content\""
+2026-10-11T17:13:45-04:00	INFO	Detected config files	num=1

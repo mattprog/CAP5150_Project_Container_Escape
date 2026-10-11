@@ -1,0 +1,4 @@
+# Keep this directory and its documentation, but ignore every generated report.
+*
+!.gitignore
+!README.md
