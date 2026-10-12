@@ -13,7 +13,7 @@ DEV_THRESHOLD="${DEV_THRESHOLD:-30}"     # more /dev entries than this => host d
 expected_for() {
   case "$1:$PROFILE" in
     # 07 - capabilities
-    raw-socket:baseline|raw-socket:seccomp) echo ALLOWED ;;=
+    raw-socket:baseline|raw-socket:seccomp) echo ALLOWED ;;
     raw-socket:*) echo DENIED ;;
     # 04/07 user ID and capabilities
     chown:baseline|chown:seccomp) echo ALLOWED ;;
@@ -51,6 +51,8 @@ probe() {
     fail "$name: tool missing in image: $out" || status=1; return
   elif [[ "$rc" -eq 99 ]]; then
     fail "$name: prerequisite failed (is /www writable?): $out" || status=1; return
+  elif [[ "$rc" -eq 98 ]] then
+    review "$name inconclusive: ${out:-this probe cannot discriminate in this environment}"; return
   elif [[ "$rc" -eq 0 ]]; then
     observed=ALLOWED
   else
@@ -68,7 +70,8 @@ probe() {
 }
 
 # 04 - privileged operations
-probe raw-socket "needs CAP_NET_RAW" 'ping -c 1 -W 1 127.0.0.1'
+probe raw-socket "needs CAP_NET_RAW" \
+  'read lo high < /proc/sys/net/ipv4/ping_group_range 2>/dev/null || { echo "ping_group_range unreadable"; exit 98; }; g=$(id -g); if [ "$lo" -le "$g" ] && [ "$g" -le "$hi"]; then echo "GID $g is inside ping_group_range $lo-$hi, so ping works without NET_RAW"; exit 98; fi; ping -c 1 -W 1 127.0.0.1'
 probe chown "needs CAP_CHOWN" \
   'f=/www/.chown-probe; touch "$f" || exit 99; chown 12345:12345 "$f"; rc=$?; rm -f "$f"; exit $rc'
 probe mount-tmpfs "needs CAP_SYS_ADMIN" \

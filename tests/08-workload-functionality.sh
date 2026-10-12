@@ -34,6 +34,7 @@ fi
 # Check volume mounts
 mount_path="$(deployment_value '{.spec.template.spec.containers[0].volumeMounts[?(@.name=="web-content")].mountPath}')"
 mount_read_only="$(deployment_value '{.spec.template.spec.containers[0].volumeMounts[?(@.name=="web-content")].readOnly}')"
+mount_read_only="${mount_read_only:-false}"
 volume_name="$(deployment_value '{.spec.template.spec.volumes[?(@.name=="web-content")].name}')"
 host_path="$(deployment_value '{.spec.template.spec.volumes[?(@.name=="web-content")].hostPath.path}')"
 if [[ "$mount_path" == "/www" && "$mount_read_only" == "false" && "$volume_name" == "web-content" && -z "$host_path" ]]; then

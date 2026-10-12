@@ -5,7 +5,8 @@ metadata:
 spec:
   template:
     spec:
-      fsGroup: 1000
+      securityContext:
+        fsGroup: 1000
       containers:
         - name: target
           securityContext:

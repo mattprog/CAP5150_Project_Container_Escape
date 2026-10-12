@@ -26,7 +26,9 @@ spec:
             - -c
             - |
               printf 'container-escape-study-ok\n' > /www/index.html
-              exec busybox httpd -f -p "$HTTP_PORT" -h /www
+              while true; do
+              { printf 'HTTP/1.0 200 OK\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\n'; cat /www/index.html; } | nc -l -p "$HTTP_PORT" >/dev/null || sleep 1
+              done
           env:
             - name: HTTP_PORT
               value: "8080"
