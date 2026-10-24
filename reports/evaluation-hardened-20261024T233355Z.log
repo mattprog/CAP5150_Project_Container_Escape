@@ -1,0 +1,328 @@
+Container-escape evaluation report
+Profile: hardened
+Runtime rounds: 3
+Created (UTC): 20261024T233355Z
+Static audits and Trivy run once; readiness and in-pod checks run each round.
+Each command's complete stdout and stderr follows without filtering.
+
+===== BEGIN config-audit.sh (hardened) =====
+CONTROLS (ON = enabled; baseline and comparison profiles intentionally leave some OFF)
+PROFILE            NON-ROOT   NO-PRIV-ESC    CAPS-DROPPED   SECCOMP   
+hardened           ON         ON             ON             ON        
+
+EXPOSURES (PASS = risky setting absent; REVIEW = needs a human; FAIL = exposure present)
+PROFILE            HOST-FS    HOST-PROCS   HOST-NET   PRIVILEGED   SYSCALLS   RUNTIME-INFO 
+hardened           PASS       PASS         PASS       PASS         PASS       PASS         
+
+Configuration-only checks; no breakout payloads or host probes are executed.
+SYSCALLS and the SECCOMP control read the same field; RUNTIME-INFO is the service-account token automount.
+===== END config-audit.sh (hardened) (exit 0) =====
+
+===== BEGIN trivy-scan.sh (hardened) =====
+Trivy evaluation report
+Profile: hardened
+Created (UTC): 20261024T233357Z
+Scope: Kubernetes configuration plus workload image vulnerabilities
+HTML configuration report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-hardened-20261024T233357Z.html
+HTML image report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-hardened-20261024T233357Z.html
+
+===== CONFIGURATION SCAN: /home/madmin/Downloads/CAP5150_Project_Container_Escape/environment/overlays/hardened =====
+2026-10-24T19:33:58-04:00	INFO	[misconfig] Misconfiguration scanning is enabled
+2026-10-24T19:33:58-04:00	INFO	[checks-client] No downloadable checks were loaded as --skip-check-update is enabled, loading from existing cache...
+2026-10-24T19:33:58-04:00	ERROR	[misconfig] Falling back to embedded checks	err="failed to check cache: cache does not exist at \"/home/madmin/.cache/trivy/policy/content\""
+2026-10-24T19:33:59-04:00	INFO	Detected config files	num=1
+
+Report Summary
+
+┌─────────────────────────┬────────────┬───────────────────┐
+│         Target          │    Type    │ Misconfigurations │
+├─────────────────────────┼────────────┼───────────────────┤
+│ hardened-kustomize.yaml │ kubernetes │         0         │
+└─────────────────────────┴────────────┴───────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+Configuration scanner exit status: 0
+
+===== IMAGE SCAN =====
+Image: alpine:3.20.10
+2026-10-24T19:34:01-04:00	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-24T19:34:08-04:00	INFO	Detected OS	family="alpine" version="3.20.10"
+2026-10-24T19:34:08-04:00	INFO	[alpine] Detecting vulnerabilities...	os_version="3.20" repository="3.20" pkg_num=14
+2026-10-24T19:34:08-04:00	INFO	Number of language-specific files	num=0
+2026-10-24T19:34:08-04:00	WARN	Unable to get vulnerability details (CVE may be rejected)	err.message="failed to get vulnerability" err.err="failed to get vulnerability: no vulnerability details" err.time=2026-10-24T23:34:08.66909905Z err.trace="01M5R47E0YBC3SWNCTQ8ANVEF0" err.context.vuln_id="CVE-2026-107891" err.stacktrace="Oops: no vulnerability details\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:29 Config.GetVulnerability.func1()\n  --- at /home/runner/go/pkg/mod/go.etcd.io/bbolt@v1.5.0/db.go:953 DB.View()\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:25 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\nThrown: failed to get vulnerability\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:37 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:450 run()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:409 Run()"
+2026-10-24T19:34:08-04:00	WARN	Unable to get vulnerability details (CVE may be rejected)	err.message="failed to get vulnerability" err.err="failed to get vulnerability: no vulnerability details" err.time=2026-10-24T23:34:08.67114633Z err.trace="01M5R47E0ZE6MXVK2P90D72GQS" err.context.vuln_id="CVE-2026-107891" err.stacktrace="Oops: no vulnerability details\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:29 Config.GetVulnerability.func1()\n  --- at /home/runner/go/pkg/mod/go.etcd.io/bbolt@v1.5.0/db.go:953 DB.View()\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:25 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\nThrown: failed to get vulnerability\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:37 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:450 run()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:409 Run()"
+2026-10-24T19:34:08-04:00	WARN	This OS version is no longer supported by the distribution	family="alpine" version="3.20.10"
+2026-10-24T19:34:08-04:00	WARN	The vulnerability detection may be insufficient because security updates are not provided
+
+Report Summary
+
+┌─────────────────────────────────┬────────┬─────────────────┐
+│             Target              │  Type  │ Vulnerabilities │
+├─────────────────────────────────┼────────┼─────────────────┤
+│ alpine:3.20.10 (alpine 3.20.10) │ alpine │        2        │
+└─────────────────────────────────┴────────┴─────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+alpine:3.20.10 (alpine 3.20.10)
+===============================
+Total: 2 (UNKNOWN: 2, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
+
+┌────────────┬─────────────────┬──────────┬────────┬───────────────────┬───────────────┬───────┐
+│  Library   │  Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version │ Title │
+├────────────┼─────────────────┼──────────┼────────┼───────────────────┼───────────────┼───────┤
+│ musl       │ CVE-2026-107891 │ UNKNOWN  │ fixed  │ 1.2.5-r3          │ 1.2.5-r4      │       │
+├────────────┤                 │          │        │                   │               ├───────┤
+│ musl-utils │                 │          │        │                   │               │       │
+└────────────┴─────────────────┴──────────┴────────┴───────────────────┴───────────────┴───────┘
+
+📣 [34mNotices:[0m
+  - Version 0.76.1 of Trivy is now available, current version is 0.75.0
+
+To suppress version checks, run Trivy scans with the --skip-version-check flag
+
+Image scanner exit status: 0
+
+Trivy findings are reported for review; --exit-code 0 prevents findings from being confused with scanner errors.
+This scan supplements, but does not replace, the Kubernetes escape-control tests.
+Trivy report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-hardened-20261024T233357Z.log
+Trivy summary: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-summary-hardened-20261024T233357Z.txt
+Trivy configuration HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-hardened-20261024T233357Z.html
+Trivy image HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-hardened-20261024T233357Z.html
+===== END trivy-scan.sh (hardened) (exit 0) =====
+
+===== BEGIN round-1/deployment-readiness =====
+deployment "escape-target" successfully rolled out
+===== END round-1/deployment-readiness (exit 0) =====
+
+===== BEGIN round-1/01-host-filesystem.sh (hardened) =====
+INFO [hardened] volume sources:
+web-content hostPath= configMap= secret= emptyDir=
+INFO [hardened] container mounts (name path readOnly):
+web-content /www readOnly=
+PASS [hardened] no hostPath volume is configured; scoped application mounts are recorded and allowed
+===== END round-1/01-host-filesystem.sh (hardened) (exit 0) =====
+
+===== BEGIN round-1/02-host-processes.sh (hardened) =====
+PASS [hardened] hostPID is disabled and the pod has an isolated process view
+===== END round-1/02-host-processes.sh (hardened) (exit 0) =====
+
+===== BEGIN round-1/03-host-network.sh (hardened) =====
+PASS [hardened] hostNetwork is disabled and pod network files are available
+===== END round-1/03-host-network.sh (hardened) (exit 0) =====
+
+===== BEGIN round-1/04-privileged-operations.sh (hardened) =====
+PASS [hardened] privileged mode is disabled and the hardened workload runs as UID/GID 10001
+===== END round-1/04-privileged-operations.sh (hardened) (exit 0) =====
+
+===== BEGIN round-1/05-restricted-syscalls.sh (hardened) =====
+PASS [hardened] RuntimeDefault Seccomp is configured and the process reports filter mode
+===== END round-1/05-restricted-syscalls.sh (hardened) (exit 0) =====
+
+===== BEGIN round-1/06-runtime-information.sh (hardened) =====
+PASS [hardened] service-account token is not mounted in the workload
+===== END round-1/06-runtime-information.sh (hardened) (exit 0) =====
+
+===== BEGIN round-1/07-effective-security.sh (hardened) =====
+PASS [hardened] effective UID/GID are 10001/10001
+INFO [hardened] Linux capability masks: CapEff=0000000000000000 CapPrm=0000000000000000 CapBnd=0000000000000000
+PASS [hardened] effective and permitted capability sets are empty; bounding set recorded for runtime comparison
+PASS [hardened] NoNewPrivs=1 matches the profile's privilege-escalation setting
+PASS [hardened] Seccomp mode is filter mode (2)
+===== END round-1/07-effective-security.sh (hardened) (exit 0) =====
+
+===== BEGIN round-1/08-workload-functionality.sh (hardened) =====
+PASS [hardened] HTTP workload returned the expected response
+PASS [hardened] Service targets the workload's configured HTTP port 8080
+PASS [hardened] web content uses a writable emptyDir mount at /www, not the container root filesystem
+===== END round-1/08-workload-functionality.sh (hardened) (exit 0) =====
+
+===== BEGIN round-1/09-behavioral-probes.sh (hardened) =====
+REVIEW [hardened] raw-socket inconclusive: ping_group_range unreadable
+command terminated with exit code 98
+INFO [hardened] chown (needs CAP_CHOWN): DENIED - chown: /www/.chown-probe: Operation not permitted command terminated with exit code 1
+PASS [hardened] chown DENIED as expected for this profile
+INFO [hardened] mount-tmpfs (needs CAP_SYS_ADMIN): DENIED - mount: permission denied (are you root?) command terminated with exit code 1
+PASS [hardened] mount-tmpfs DENIED as expected for this profile
+INFO [hardened] mknod (needs CAP_MKNOD): DENIED - mknod: /www/.mknod-probe: Operation not permitted command terminated with exit code 1
+PASS [hardened] mknod DENIED as expected for this profile
+INFO [hardened] dac-override (needs CAP_DAC_OVERRIDE): DENIED - cat: can't open '/www/.dac-probe': Permission denied command terminated with exit code 1
+PASS [hardened] dac-override DENIED as expected for this profile
+INFO [hardened] userns (user namespace creation): DENIED - unshare: unshare(0x10000000): Operation not permitted command terminated with exit code 1
+PASS [hardened] userns DENIED as expected for this profile
+INFO [hardened] rootfs-write (write to the container root filesystem): DENIED - touch: /.rootfs-probe: Read-only file system command terminated with exit code 1
+PASS [hardened] rootfs-write DENIED as expected for this profile
+INFO [hardened] www-write (write to the /www emptyDir): ALLOWED 
+PASS [hardened] www-write ALLOWED as expected for this profile
+INFO [hardened] runtime-socket (container runtime socket visible): DENIED - command terminated with exit code 1
+PASS [hardened] runtime-socket DENIED as expected for this profile
+INFO [hardened] unexpected mounts: /www <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/containers/target/754165a5 (ext4) ; /etc/hostname <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/51b6d21fafe19e444faace1e9af129536dc88ca5db0e59282807dbd60ed474bc/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/51b6d21fafe19e444faace1e9af129536dc88ca5db0e59282807dbd60ed474bc/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
+REVIEW [hardened] host-backed mounts present; confirm each is intended (see INFO line)
+INFO [hardened] visible PIDs: 5 (threshold 25)
+PASS [hardened] pod sees only its own processes (5 PIDs)
+INFO [hardened] podIP=10.244.0.9 hostIP=172.18.0.2
+PASS [hardened] pod IP differs from the node IP
+INFO [hardened] /dev entries: 16 (threshold 30)
+PASS [hardened] only the minimal container /dev is present (16 entries)
+INFO [hardened] sa-token-read (service-account token readable): DENIED - cat: can't open '/var/run/secrets/kubernetes.io/serviceaccount/token': No such file or directory command terminated with exit code 1
+PASS [hardened] sa-token-read DENIED as expected for this profile
+===== END round-1/09-behavioral-probes.sh (hardened) (exit 0) =====
+
+===== BEGIN round-2/deployment-readiness =====
+deployment "escape-target" successfully rolled out
+===== END round-2/deployment-readiness (exit 0) =====
+
+===== BEGIN round-2/01-host-filesystem.sh (hardened) =====
+INFO [hardened] volume sources:
+web-content hostPath= configMap= secret= emptyDir=
+INFO [hardened] container mounts (name path readOnly):
+web-content /www readOnly=
+PASS [hardened] no hostPath volume is configured; scoped application mounts are recorded and allowed
+===== END round-2/01-host-filesystem.sh (hardened) (exit 0) =====
+
+===== BEGIN round-2/02-host-processes.sh (hardened) =====
+PASS [hardened] hostPID is disabled and the pod has an isolated process view
+===== END round-2/02-host-processes.sh (hardened) (exit 0) =====
+
+===== BEGIN round-2/03-host-network.sh (hardened) =====
+PASS [hardened] hostNetwork is disabled and pod network files are available
+===== END round-2/03-host-network.sh (hardened) (exit 0) =====
+
+===== BEGIN round-2/04-privileged-operations.sh (hardened) =====
+PASS [hardened] privileged mode is disabled and the hardened workload runs as UID/GID 10001
+===== END round-2/04-privileged-operations.sh (hardened) (exit 0) =====
+
+===== BEGIN round-2/05-restricted-syscalls.sh (hardened) =====
+PASS [hardened] RuntimeDefault Seccomp is configured and the process reports filter mode
+===== END round-2/05-restricted-syscalls.sh (hardened) (exit 0) =====
+
+===== BEGIN round-2/06-runtime-information.sh (hardened) =====
+PASS [hardened] service-account token is not mounted in the workload
+===== END round-2/06-runtime-information.sh (hardened) (exit 0) =====
+
+===== BEGIN round-2/07-effective-security.sh (hardened) =====
+PASS [hardened] effective UID/GID are 10001/10001
+INFO [hardened] Linux capability masks: CapEff=0000000000000000 CapPrm=0000000000000000 CapBnd=0000000000000000
+PASS [hardened] effective and permitted capability sets are empty; bounding set recorded for runtime comparison
+PASS [hardened] NoNewPrivs=1 matches the profile's privilege-escalation setting
+PASS [hardened] Seccomp mode is filter mode (2)
+===== END round-2/07-effective-security.sh (hardened) (exit 0) =====
+
+===== BEGIN round-2/08-workload-functionality.sh (hardened) =====
+PASS [hardened] HTTP workload returned the expected response
+PASS [hardened] Service targets the workload's configured HTTP port 8080
+PASS [hardened] web content uses a writable emptyDir mount at /www, not the container root filesystem
+===== END round-2/08-workload-functionality.sh (hardened) (exit 0) =====
+
+===== BEGIN round-2/09-behavioral-probes.sh (hardened) =====
+REVIEW [hardened] raw-socket inconclusive: ping_group_range unreadable
+command terminated with exit code 98
+INFO [hardened] chown (needs CAP_CHOWN): DENIED - chown: /www/.chown-probe: Operation not permitted command terminated with exit code 1
+PASS [hardened] chown DENIED as expected for this profile
+INFO [hardened] mount-tmpfs (needs CAP_SYS_ADMIN): DENIED - mount: permission denied (are you root?) command terminated with exit code 1
+PASS [hardened] mount-tmpfs DENIED as expected for this profile
+INFO [hardened] mknod (needs CAP_MKNOD): DENIED - mknod: /www/.mknod-probe: Operation not permitted command terminated with exit code 1
+PASS [hardened] mknod DENIED as expected for this profile
+INFO [hardened] dac-override (needs CAP_DAC_OVERRIDE): DENIED - cat: can't open '/www/.dac-probe': Permission denied command terminated with exit code 1
+PASS [hardened] dac-override DENIED as expected for this profile
+INFO [hardened] userns (user namespace creation): DENIED - unshare: unshare(0x10000000): Operation not permitted command terminated with exit code 1
+PASS [hardened] userns DENIED as expected for this profile
+INFO [hardened] rootfs-write (write to the container root filesystem): DENIED - touch: /.rootfs-probe: Read-only file system command terminated with exit code 1
+PASS [hardened] rootfs-write DENIED as expected for this profile
+INFO [hardened] www-write (write to the /www emptyDir): ALLOWED 
+PASS [hardened] www-write ALLOWED as expected for this profile
+INFO [hardened] runtime-socket (container runtime socket visible): DENIED - command terminated with exit code 1
+PASS [hardened] runtime-socket DENIED as expected for this profile
+INFO [hardened] unexpected mounts: /www <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/containers/target/754165a5 (ext4) ; /etc/hostname <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/51b6d21fafe19e444faace1e9af129536dc88ca5db0e59282807dbd60ed474bc/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/51b6d21fafe19e444faace1e9af129536dc88ca5db0e59282807dbd60ed474bc/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
+REVIEW [hardened] host-backed mounts present; confirm each is intended (see INFO line)
+INFO [hardened] visible PIDs: 5 (threshold 25)
+PASS [hardened] pod sees only its own processes (5 PIDs)
+INFO [hardened] podIP=10.244.0.9 hostIP=172.18.0.2
+PASS [hardened] pod IP differs from the node IP
+INFO [hardened] /dev entries: 16 (threshold 30)
+PASS [hardened] only the minimal container /dev is present (16 entries)
+INFO [hardened] sa-token-read (service-account token readable): DENIED - cat: can't open '/var/run/secrets/kubernetes.io/serviceaccount/token': No such file or directory command terminated with exit code 1
+PASS [hardened] sa-token-read DENIED as expected for this profile
+===== END round-2/09-behavioral-probes.sh (hardened) (exit 0) =====
+
+===== BEGIN round-3/deployment-readiness =====
+deployment "escape-target" successfully rolled out
+===== END round-3/deployment-readiness (exit 0) =====
+
+===== BEGIN round-3/01-host-filesystem.sh (hardened) =====
+INFO [hardened] volume sources:
+web-content hostPath= configMap= secret= emptyDir=
+INFO [hardened] container mounts (name path readOnly):
+web-content /www readOnly=
+PASS [hardened] no hostPath volume is configured; scoped application mounts are recorded and allowed
+===== END round-3/01-host-filesystem.sh (hardened) (exit 0) =====
+
+===== BEGIN round-3/02-host-processes.sh (hardened) =====
+PASS [hardened] hostPID is disabled and the pod has an isolated process view
+===== END round-3/02-host-processes.sh (hardened) (exit 0) =====
+
+===== BEGIN round-3/03-host-network.sh (hardened) =====
+PASS [hardened] hostNetwork is disabled and pod network files are available
+===== END round-3/03-host-network.sh (hardened) (exit 0) =====
+
+===== BEGIN round-3/04-privileged-operations.sh (hardened) =====
+PASS [hardened] privileged mode is disabled and the hardened workload runs as UID/GID 10001
+===== END round-3/04-privileged-operations.sh (hardened) (exit 0) =====
+
+===== BEGIN round-3/05-restricted-syscalls.sh (hardened) =====
+PASS [hardened] RuntimeDefault Seccomp is configured and the process reports filter mode
+===== END round-3/05-restricted-syscalls.sh (hardened) (exit 0) =====
+
+===== BEGIN round-3/06-runtime-information.sh (hardened) =====
+PASS [hardened] service-account token is not mounted in the workload
+===== END round-3/06-runtime-information.sh (hardened) (exit 0) =====
+
+===== BEGIN round-3/07-effective-security.sh (hardened) =====
+PASS [hardened] effective UID/GID are 10001/10001
+INFO [hardened] Linux capability masks: CapEff=0000000000000000 CapPrm=0000000000000000 CapBnd=0000000000000000
+PASS [hardened] effective and permitted capability sets are empty; bounding set recorded for runtime comparison
+PASS [hardened] NoNewPrivs=1 matches the profile's privilege-escalation setting
+PASS [hardened] Seccomp mode is filter mode (2)
+===== END round-3/07-effective-security.sh (hardened) (exit 0) =====
+
+===== BEGIN round-3/08-workload-functionality.sh (hardened) =====
+PASS [hardened] HTTP workload returned the expected response
+PASS [hardened] Service targets the workload's configured HTTP port 8080
+PASS [hardened] web content uses a writable emptyDir mount at /www, not the container root filesystem
+===== END round-3/08-workload-functionality.sh (hardened) (exit 0) =====
+
+===== BEGIN round-3/09-behavioral-probes.sh (hardened) =====
+REVIEW [hardened] raw-socket inconclusive: ping_group_range unreadable
+command terminated with exit code 98
+INFO [hardened] chown (needs CAP_CHOWN): DENIED - chown: /www/.chown-probe: Operation not permitted command terminated with exit code 1
+PASS [hardened] chown DENIED as expected for this profile
+INFO [hardened] mount-tmpfs (needs CAP_SYS_ADMIN): DENIED - mount: permission denied (are you root?) command terminated with exit code 1
+PASS [hardened] mount-tmpfs DENIED as expected for this profile
+INFO [hardened] mknod (needs CAP_MKNOD): DENIED - mknod: /www/.mknod-probe: Operation not permitted command terminated with exit code 1
+PASS [hardened] mknod DENIED as expected for this profile
+INFO [hardened] dac-override (needs CAP_DAC_OVERRIDE): DENIED - cat: can't open '/www/.dac-probe': Permission denied command terminated with exit code 1
+PASS [hardened] dac-override DENIED as expected for this profile
+INFO [hardened] userns (user namespace creation): DENIED - unshare: unshare(0x10000000): Operation not permitted command terminated with exit code 1
+PASS [hardened] userns DENIED as expected for this profile
+INFO [hardened] rootfs-write (write to the container root filesystem): DENIED - touch: /.rootfs-probe: Read-only file system command terminated with exit code 1
+PASS [hardened] rootfs-write DENIED as expected for this profile
+INFO [hardened] www-write (write to the /www emptyDir): ALLOWED 
+PASS [hardened] www-write ALLOWED as expected for this profile
+INFO [hardened] runtime-socket (container runtime socket visible): DENIED - command terminated with exit code 1
+PASS [hardened] runtime-socket DENIED as expected for this profile
+INFO [hardened] unexpected mounts: /www <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/containers/target/754165a5 (ext4) ; /etc/hostname <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/51b6d21fafe19e444faace1e9af129536dc88ca5db0e59282807dbd60ed474bc/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/51b6d21fafe19e444faace1e9af129536dc88ca5db0e59282807dbd60ed474bc/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
+REVIEW [hardened] host-backed mounts present; confirm each is intended (see INFO line)
+INFO [hardened] visible PIDs: 5 (threshold 25)
+PASS [hardened] pod sees only its own processes (5 PIDs)
+INFO [hardened] podIP=10.244.0.9 hostIP=172.18.0.2
+PASS [hardened] pod IP differs from the node IP
+INFO [hardened] /dev entries: 16 (threshold 30)
+PASS [hardened] only the minimal container /dev is present (16 entries)
+INFO [hardened] sa-token-read (service-account token readable): DENIED - cat: can't open '/var/run/secrets/kubernetes.io/serviceaccount/token': No such file or directory command terminated with exit code 1
+PASS [hardened] sa-token-read DENIED as expected for this profile
+===== END round-3/09-behavioral-probes.sh (hardened) (exit 0) =====
+

@@ -1,0 +1,502 @@
+Container-escape evaluation report
+Profile: user-isolation
+Runtime rounds: 3
+Created (UTC): 20261024T232857Z
+Static audits and Trivy run once; readiness and in-pod checks run each round.
+Each command's complete stdout and stderr follows without filtering.
+
+===== BEGIN config-audit.sh (user-isolation) =====
+CONTROLS (ON = enabled; baseline and comparison profiles intentionally leave some OFF)
+PROFILE            NON-ROOT   NO-PRIV-ESC    CAPS-DROPPED   SECCOMP   
+user-isolation     ON         ON             OFF            OFF       
+
+EXPOSURES (PASS = risky setting absent; REVIEW = needs a human; FAIL = exposure present)
+PROFILE            HOST-FS    HOST-PROCS   HOST-NET   PRIVILEGED   SYSCALLS   RUNTIME-INFO 
+user-isolation     PASS       PASS         PASS       PASS         REVIEW     PASS         
+
+Configuration-only checks; no breakout payloads or host probes are executed.
+SYSCALLS and the SECCOMP control read the same field; RUNTIME-INFO is the service-account token automount.
+===== END config-audit.sh (user-isolation) (exit 0) =====
+
+===== BEGIN trivy-scan.sh (user-isolation) =====
+Trivy evaluation report
+Profile: user-isolation
+Created (UTC): 20261024T232859Z
+Scope: Kubernetes configuration plus workload image vulnerabilities
+HTML configuration report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-user-isolation-20261024T232859Z.html
+HTML image report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-user-isolation-20261024T232859Z.html
+
+===== CONFIGURATION SCAN: /home/madmin/Downloads/CAP5150_Project_Container_Escape/environment/overlays/user-isolation =====
+2026-10-24T19:29:00-04:00	INFO	[misconfig] Misconfiguration scanning is enabled
+2026-10-24T19:29:00-04:00	INFO	[checks-client] No downloadable checks were loaded as --skip-check-update is enabled, loading from existing cache...
+2026-10-24T19:29:00-04:00	ERROR	[misconfig] Falling back to embedded checks	err="failed to check cache: cache does not exist at \"/home/madmin/.cache/trivy/policy/content\""
+2026-10-24T19:29:02-04:00	INFO	Detected config files	num=1
+
+Report Summary
+
+┌───────────────────────────────┬────────────┬───────────────────┐
+│            Target             │    Type    │ Misconfigurations │
+├───────────────────────────────┼────────────┼───────────────────┤
+│ user-isolation-kustomize.yaml │ kubernetes │         8         │
+└───────────────────────────────┴────────────┴───────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+user-isolation-kustomize.yaml (kubernetes)
+==========================================
+Tests: 107 (SUCCESSES: 99, FAILURES: 8)
+Failures: 8 (UNKNOWN: 0, LOW: 6, MEDIUM: 1, HIGH: 1, CRITICAL: 0)
+
+KSV-0003 (LOW): Container 'target' of Deployment 'escape-target' should add 'ALL' to 'securityContext.capabilities.drop'
+═══════════════════════════════════════════════════════════════════════════════════════
+The container should drop all default capabilities and add only those that are needed for its execution.
+
+See https://avd.aquasec.com/misconfig/ksv-0003
+───────────────────────────────────────────────────────────────────────────────────────
+ user-isolation-kustomize.yaml:47-79
+───────────────────────────────────────────────────────────────────────────────────────
+  47 ┌       - command:
+  48 │         - sh
+  49 │         - -c
+  50 │         - |
+  51 │           printf 'container-escape-study-ok\n' > /www/index.html
+  52 │           while true; do
+  53 │           { printf 'HTTP/1.0 200 OK\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\n'; cat /www/index.html; } | nc -l -p "$HTTP_PORT" >/dev/null || sleep 1
+  54 │           done
+  55 └         env:
+  ..   
+───────────────────────────────────────────────────────────────────────────────────────
+
+
+KSV-0004 (LOW): Container 'target' of 'deployment' 'escape-target' in 'escape-user-isolation' namespace should set securityContext.capabilities.drop
+═══════════════════════════════════════════════════════════════════════════════════════
+Security best practices require containers to run with minimal required capabilities.
+
+See https://avd.aquasec.com/misconfig/ksv-0004
+───────────────────────────────────────────────────────────────────────────────────────
+ user-isolation-kustomize.yaml:47-79
+───────────────────────────────────────────────────────────────────────────────────────
+  47 ┌       - command:
+  48 │         - sh
+  49 │         - -c
+  50 │         - |
+  51 │           printf 'container-escape-study-ok\n' > /www/index.html
+  52 │           while true; do
+  53 │           { printf 'HTTP/1.0 200 OK\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\n'; cat /www/index.html; } | nc -l -p "$HTTP_PORT" >/dev/null || sleep 1
+  54 │           done
+  55 └         env:
+  ..   
+───────────────────────────────────────────────────────────────────────────────────────
+
+
+KSV-0014 (HIGH): Container 'target' of Deployment 'escape-target' should set 'securityContext.readOnlyRootFilesystem' to true
+═══════════════════════════════════════════════════════════════════════════════════════
+An immutable root file system prevents applications from writing to their local disk. This can limit intrusions, as attackers will not be able to tamper with the file system or write foreign executables to disk.
+
+See https://avd.aquasec.com/misconfig/ksv-0014
+───────────────────────────────────────────────────────────────────────────────────────
+ user-isolation-kustomize.yaml:47-79
+───────────────────────────────────────────────────────────────────────────────────────
+  47 ┌       - command:
+  48 │         - sh
+  49 │         - -c
+  50 │         - |
+  51 │           printf 'container-escape-study-ok\n' > /www/index.html
+  52 │           while true; do
+  53 │           { printf 'HTTP/1.0 200 OK\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\n'; cat /www/index.html; } | nc -l -p "$HTTP_PORT" >/dev/null || sleep 1
+  54 │           done
+  55 └         env:
+  ..   
+───────────────────────────────────────────────────────────────────────────────────────
+
+
+KSV-0020 (LOW): Container 'target' of Deployment 'escape-target' should set 'securityContext.runAsUser' > 10000
+═══════════════════════════════════════════════════════════════════════════════════════
+Force the container to run with user ID > 10000 to avoid conflicts with the host’s user table.
+
+See https://avd.aquasec.com/misconfig/ksv-0020
+───────────────────────────────────────────────────────────────────────────────────────
+ user-isolation-kustomize.yaml:47-79
+───────────────────────────────────────────────────────────────────────────────────────
+  47 ┌       - command:
+  48 │         - sh
+  49 │         - -c
+  50 │         - |
+  51 │           printf 'container-escape-study-ok\n' > /www/index.html
+  52 │           while true; do
+  53 │           { printf 'HTTP/1.0 200 OK\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\n'; cat /www/index.html; } | nc -l -p "$HTTP_PORT" >/dev/null || sleep 1
+  54 │           done
+  55 └         env:
+  ..   
+───────────────────────────────────────────────────────────────────────────────────────
+
+
+KSV-0021 (LOW): Container 'target' of Deployment 'escape-target' should set 'securityContext.runAsGroup' > 10000
+═══════════════════════════════════════════════════════════════════════════════════════
+Force the container to run with group ID > 10000 to avoid conflicts with the host’s user table.
+
+See https://avd.aquasec.com/misconfig/ksv-0021
+───────────────────────────────────────────────────────────────────────────────────────
+ user-isolation-kustomize.yaml:47-79
+───────────────────────────────────────────────────────────────────────────────────────
+  47 ┌       - command:
+  48 │         - sh
+  49 │         - -c
+  50 │         - |
+  51 │           printf 'container-escape-study-ok\n' > /www/index.html
+  52 │           while true; do
+  53 │           { printf 'HTTP/1.0 200 OK\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\n'; cat /www/index.html; } | nc -l -p "$HTTP_PORT" >/dev/null || sleep 1
+  54 │           done
+  55 └         env:
+  ..   
+───────────────────────────────────────────────────────────────────────────────────────
+
+
+KSV-0030 (LOW): Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'
+═══════════════════════════════════════════════════════════════════════════════════════
+According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.
+
+See https://avd.aquasec.com/misconfig/ksv-0030
+───────────────────────────────────────────────────────────────────────────────────────
+ user-isolation-kustomize.yaml:47-79
+───────────────────────────────────────────────────────────────────────────────────────
+  47 ┌       - command:
+  48 │         - sh
+  49 │         - -c
+  50 │         - |
+  51 │           printf 'container-escape-study-ok\n' > /www/index.html
+  52 │           while true; do
+  53 │           { printf 'HTTP/1.0 200 OK\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\n'; cat /www/index.html; } | nc -l -p "$HTTP_PORT" >/dev/null || sleep 1
+  54 │           done
+  55 └         env:
+  ..   
+───────────────────────────────────────────────────────────────────────────────────────
+
+
+KSV-0104 (MEDIUM): container "target" of deployment "escape-target" in "escape-user-isolation" namespace should specify a seccomp profile
+═══════════════════════════════════════════════════════════════════════════════════════
+A program inside the container can bypass Seccomp protection policies.
+
+See https://avd.aquasec.com/misconfig/ksv-0104
+───────────────────────────────────────────────────────────────────────────────────────
+ user-isolation-kustomize.yaml:47-79
+───────────────────────────────────────────────────────────────────────────────────────
+  47 ┌       - command:
+  48 │         - sh
+  49 │         - -c
+  50 │         - |
+  51 │           printf 'container-escape-study-ok\n' > /www/index.html
+  52 │           while true; do
+  53 │           { printf 'HTTP/1.0 200 OK\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\n'; cat /www/index.html; } | nc -l -p "$HTTP_PORT" >/dev/null || sleep 1
+  54 │           done
+  55 └         env:
+  ..   
+───────────────────────────────────────────────────────────────────────────────────────
+
+
+KSV-0106 (LOW): container should drop all
+═══════════════════════════════════════════════════════════════════════════════════════
+Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.
+
+See https://avd.aquasec.com/misconfig/ksv-0106
+───────────────────────────────────────────────────────────────────────────────────────
+ user-isolation-kustomize.yaml:47-79
+───────────────────────────────────────────────────────────────────────────────────────
+  47 ┌       - command:
+  48 │         - sh
+  49 │         - -c
+  50 │         - |
+  51 │           printf 'container-escape-study-ok\n' > /www/index.html
+  52 │           while true; do
+  53 │           { printf 'HTTP/1.0 200 OK\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\n'; cat /www/index.html; } | nc -l -p "$HTTP_PORT" >/dev/null || sleep 1
+  54 │           done
+  55 └         env:
+  ..   
+───────────────────────────────────────────────────────────────────────────────────────
+
+
+Configuration scanner exit status: 0
+
+===== IMAGE SCAN =====
+Image: alpine:3.20.10
+2026-10-24T19:29:04-04:00	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-24T19:29:11-04:00	INFO	Detected OS	family="alpine" version="3.20.10"
+2026-10-24T19:29:11-04:00	INFO	[alpine] Detecting vulnerabilities...	os_version="3.20" repository="3.20" pkg_num=14
+2026-10-24T19:29:11-04:00	INFO	Number of language-specific files	num=0
+2026-10-24T19:29:11-04:00	WARN	Unable to get vulnerability details (CVE may be rejected)	err.message="failed to get vulnerability" err.err="failed to get vulnerability: no vulnerability details" err.time=2026-10-24T23:29:11.575212731Z err.trace="01M5R3YBWQN7C57K6ZE2K7C5D9" err.context.vuln_id="CVE-2026-107891" err.stacktrace="Oops: no vulnerability details\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:29 Config.GetVulnerability.func1()\n  --- at /home/runner/go/pkg/mod/go.etcd.io/bbolt@v1.5.0/db.go:953 DB.View()\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:25 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\nThrown: failed to get vulnerability\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:37 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:450 run()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:409 Run()"
+2026-10-24T19:29:11-04:00	WARN	Unable to get vulnerability details (CVE may be rejected)	err.message="failed to get vulnerability" err.err="failed to get vulnerability: no vulnerability details" err.time=2026-10-24T23:29:11.575857344Z err.trace="01M5R3YBWRNCBHJWQSVDNADMAX" err.context.vuln_id="CVE-2026-107891" err.stacktrace="Oops: no vulnerability details\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:29 Config.GetVulnerability.func1()\n  --- at /home/runner/go/pkg/mod/go.etcd.io/bbolt@v1.5.0/db.go:953 DB.View()\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:25 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\nThrown: failed to get vulnerability\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:37 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:450 run()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:409 Run()"
+2026-10-24T19:29:11-04:00	WARN	This OS version is no longer supported by the distribution	family="alpine" version="3.20.10"
+2026-10-24T19:29:11-04:00	WARN	The vulnerability detection may be insufficient because security updates are not provided
+
+Report Summary
+
+┌─────────────────────────────────┬────────┬─────────────────┐
+│             Target              │  Type  │ Vulnerabilities │
+├─────────────────────────────────┼────────┼─────────────────┤
+│ alpine:3.20.10 (alpine 3.20.10) │ alpine │        2        │
+└─────────────────────────────────┴────────┴─────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+alpine:3.20.10 (alpine 3.20.10)
+===============================
+Total: 2 (UNKNOWN: 2, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
+
+┌────────────┬─────────────────┬──────────┬────────┬───────────────────┬───────────────┬───────┐
+│  Library   │  Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version │ Title │
+├────────────┼─────────────────┼──────────┼────────┼───────────────────┼───────────────┼───────┤
+│ musl       │ CVE-2026-107891 │ UNKNOWN  │ fixed  │ 1.2.5-r3          │ 1.2.5-r4      │       │
+├────────────┤                 │          │        │                   │               ├───────┤
+│ musl-utils │                 │          │        │                   │               │       │
+└────────────┴─────────────────┴──────────┴────────┴───────────────────┴───────────────┴───────┘
+
+📣 [34mNotices:[0m
+  - Version 0.76.1 of Trivy is now available, current version is 0.75.0
+
+To suppress version checks, run Trivy scans with the --skip-version-check flag
+
+Image scanner exit status: 0
+
+Trivy findings are reported for review; --exit-code 0 prevents findings from being confused with scanner errors.
+This scan supplements, but does not replace, the Kubernetes escape-control tests.
+Trivy report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-user-isolation-20261024T232859Z.log
+Trivy summary: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-summary-user-isolation-20261024T232859Z.txt
+Trivy configuration HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-user-isolation-20261024T232859Z.html
+Trivy image HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-user-isolation-20261024T232859Z.html
+===== END trivy-scan.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-1/deployment-readiness =====
+deployment "escape-target" successfully rolled out
+===== END round-1/deployment-readiness (exit 0) =====
+
+===== BEGIN round-1/01-host-filesystem.sh (user-isolation) =====
+INFO [user-isolation] volume sources:
+web-content hostPath= configMap= secret= emptyDir=
+INFO [user-isolation] container mounts (name path readOnly):
+web-content /www readOnly=
+PASS [user-isolation] no hostPath volume is configured; scoped application mounts are recorded and allowed
+===== END round-1/01-host-filesystem.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-1/02-host-processes.sh (user-isolation) =====
+PASS [user-isolation] hostPID is disabled and the pod has an isolated process view
+===== END round-1/02-host-processes.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-1/03-host-network.sh (user-isolation) =====
+PASS [user-isolation] hostNetwork is disabled and pod network files are available
+===== END round-1/03-host-network.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-1/04-privileged-operations.sh (user-isolation) =====
+PASS [user-isolation] privileged mode is disabled and the workload runs as UID/GID 1000
+===== END round-1/04-privileged-operations.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-1/05-restricted-syscalls.sh (user-isolation) =====
+REVIEW [user-isolation] baseline is intentionally unconfined; no syscall-blocking claim is made
+===== END round-1/05-restricted-syscalls.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-1/06-runtime-information.sh (user-isolation) =====
+PASS [user-isolation] service-account token is not mounted in the workload
+===== END round-1/06-runtime-information.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-1/07-effective-security.sh (user-isolation) =====
+PASS [user-isolation] effective UID/GID are 1000/1000
+INFO [user-isolation] Linux capability masks: CapEff=0000000000000000 CapPrm=0000000000000000 CapBnd=00000000a80425fb
+REVIEW [user-isolation] this profile retains the runtime's default capabilities; observed CapEff=0000000000000000
+PASS [user-isolation] NoNewPrivs=1 matches the profile's privilege-escalation setting
+REVIEW [user-isolation] Seccomp is intentionally unconfined for this comparison profile (mode 0)
+===== END round-1/07-effective-security.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-1/08-workload-functionality.sh (user-isolation) =====
+PASS [user-isolation] HTTP workload returned the expected response
+PASS [user-isolation] Service targets the workload's configured HTTP port 8080
+PASS [user-isolation] web content uses a writable emptyDir mount at /www, not the container root filesystem
+===== END round-1/08-workload-functionality.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-1/09-behavioral-probes.sh (user-isolation) =====
+REVIEW [user-isolation] raw-socket inconclusive: ping_group_range unreadable
+command terminated with exit code 98
+INFO [user-isolation] chown (needs CAP_CHOWN): DENIED - chown: /www/.chown-probe: Operation not permitted command terminated with exit code 1
+PASS [user-isolation] chown DENIED as expected for this profile
+INFO [user-isolation] mount-tmpfs (needs CAP_SYS_ADMIN): DENIED - mount: permission denied (are you root?) command terminated with exit code 1
+PASS [user-isolation] mount-tmpfs DENIED as expected for this profile
+INFO [user-isolation] mknod (needs CAP_MKNOD): DENIED - mknod: /www/.mknod-probe: Operation not permitted command terminated with exit code 1
+PASS [user-isolation] mknod DENIED as expected for this profile
+INFO [user-isolation] dac-override (needs CAP_DAC_OVERRIDE): DENIED - cat: can't open '/www/.dac-probe': Permission denied command terminated with exit code 1
+PASS [user-isolation] dac-override DENIED as expected for this profile
+INFO [user-isolation] userns (user namespace creation): ALLOWED 
+PASS [user-isolation] userns ALLOWED as expected for this profile
+INFO [user-isolation] rootfs-write (write to the container root filesystem): DENIED - touch: /.rootfs-probe: Permission denied command terminated with exit code 1
+PASS [user-isolation] rootfs-write DENIED as expected for this profile
+INFO [user-isolation] www-write (write to the /www emptyDir): ALLOWED 
+PASS [user-isolation] www-write ALLOWED as expected for this profile
+INFO [user-isolation] runtime-socket (container runtime socket visible): DENIED - command terminated with exit code 1
+PASS [user-isolation] runtime-socket DENIED as expected for this profile
+INFO [user-isolation] unexpected mounts: /www <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/containers/target/d72a29ed (ext4) ; /etc/hostname <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/2849a3928b0053953b4c7abb488cecb1f52fd06cd9fbc7d320aaec6a1ad3b3e9/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/2849a3928b0053953b4c7abb488cecb1f52fd06cd9fbc7d320aaec6a1ad3b3e9/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
+REVIEW [user-isolation] host-backed mounts present; confirm each is intended (see INFO line)
+INFO [user-isolation] visible PIDs: 5 (threshold 25)
+PASS [user-isolation] pod sees only its own processes (5 PIDs)
+INFO [user-isolation] podIP=10.244.0.6 hostIP=172.18.0.2
+PASS [user-isolation] pod IP differs from the node IP
+INFO [user-isolation] /dev entries: 16 (threshold 30)
+PASS [user-isolation] only the minimal container /dev is present (16 entries)
+INFO [user-isolation] sa-token-read (service-account token readable): DENIED - cat: can't open '/var/run/secrets/kubernetes.io/serviceaccount/token': No such file or directory command terminated with exit code 1
+PASS [user-isolation] sa-token-read DENIED as expected for this profile
+===== END round-1/09-behavioral-probes.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-2/deployment-readiness =====
+deployment "escape-target" successfully rolled out
+===== END round-2/deployment-readiness (exit 0) =====
+
+===== BEGIN round-2/01-host-filesystem.sh (user-isolation) =====
+INFO [user-isolation] volume sources:
+web-content hostPath= configMap= secret= emptyDir=
+INFO [user-isolation] container mounts (name path readOnly):
+web-content /www readOnly=
+PASS [user-isolation] no hostPath volume is configured; scoped application mounts are recorded and allowed
+===== END round-2/01-host-filesystem.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-2/02-host-processes.sh (user-isolation) =====
+PASS [user-isolation] hostPID is disabled and the pod has an isolated process view
+===== END round-2/02-host-processes.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-2/03-host-network.sh (user-isolation) =====
+PASS [user-isolation] hostNetwork is disabled and pod network files are available
+===== END round-2/03-host-network.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-2/04-privileged-operations.sh (user-isolation) =====
+PASS [user-isolation] privileged mode is disabled and the workload runs as UID/GID 1000
+===== END round-2/04-privileged-operations.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-2/05-restricted-syscalls.sh (user-isolation) =====
+REVIEW [user-isolation] baseline is intentionally unconfined; no syscall-blocking claim is made
+===== END round-2/05-restricted-syscalls.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-2/06-runtime-information.sh (user-isolation) =====
+PASS [user-isolation] service-account token is not mounted in the workload
+===== END round-2/06-runtime-information.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-2/07-effective-security.sh (user-isolation) =====
+PASS [user-isolation] effective UID/GID are 1000/1000
+INFO [user-isolation] Linux capability masks: CapEff=0000000000000000 CapPrm=0000000000000000 CapBnd=00000000a80425fb
+REVIEW [user-isolation] this profile retains the runtime's default capabilities; observed CapEff=0000000000000000
+PASS [user-isolation] NoNewPrivs=1 matches the profile's privilege-escalation setting
+REVIEW [user-isolation] Seccomp is intentionally unconfined for this comparison profile (mode 0)
+===== END round-2/07-effective-security.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-2/08-workload-functionality.sh (user-isolation) =====
+PASS [user-isolation] HTTP workload returned the expected response
+PASS [user-isolation] Service targets the workload's configured HTTP port 8080
+PASS [user-isolation] web content uses a writable emptyDir mount at /www, not the container root filesystem
+===== END round-2/08-workload-functionality.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-2/09-behavioral-probes.sh (user-isolation) =====
+REVIEW [user-isolation] raw-socket inconclusive: ping_group_range unreadable
+command terminated with exit code 98
+INFO [user-isolation] chown (needs CAP_CHOWN): DENIED - chown: /www/.chown-probe: Operation not permitted command terminated with exit code 1
+PASS [user-isolation] chown DENIED as expected for this profile
+INFO [user-isolation] mount-tmpfs (needs CAP_SYS_ADMIN): DENIED - mount: permission denied (are you root?) command terminated with exit code 1
+PASS [user-isolation] mount-tmpfs DENIED as expected for this profile
+INFO [user-isolation] mknod (needs CAP_MKNOD): DENIED - mknod: /www/.mknod-probe: Operation not permitted command terminated with exit code 1
+PASS [user-isolation] mknod DENIED as expected for this profile
+INFO [user-isolation] dac-override (needs CAP_DAC_OVERRIDE): DENIED - cat: can't open '/www/.dac-probe': Permission denied command terminated with exit code 1
+PASS [user-isolation] dac-override DENIED as expected for this profile
+INFO [user-isolation] userns (user namespace creation): ALLOWED 
+PASS [user-isolation] userns ALLOWED as expected for this profile
+INFO [user-isolation] rootfs-write (write to the container root filesystem): DENIED - touch: /.rootfs-probe: Permission denied command terminated with exit code 1
+PASS [user-isolation] rootfs-write DENIED as expected for this profile
+INFO [user-isolation] www-write (write to the /www emptyDir): ALLOWED 
+PASS [user-isolation] www-write ALLOWED as expected for this profile
+INFO [user-isolation] runtime-socket (container runtime socket visible): DENIED - command terminated with exit code 1
+PASS [user-isolation] runtime-socket DENIED as expected for this profile
+INFO [user-isolation] unexpected mounts: /www <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/containers/target/d72a29ed (ext4) ; /etc/hostname <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/2849a3928b0053953b4c7abb488cecb1f52fd06cd9fbc7d320aaec6a1ad3b3e9/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/2849a3928b0053953b4c7abb488cecb1f52fd06cd9fbc7d320aaec6a1ad3b3e9/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
+REVIEW [user-isolation] host-backed mounts present; confirm each is intended (see INFO line)
+INFO [user-isolation] visible PIDs: 5 (threshold 25)
+PASS [user-isolation] pod sees only its own processes (5 PIDs)
+INFO [user-isolation] podIP=10.244.0.6 hostIP=172.18.0.2
+PASS [user-isolation] pod IP differs from the node IP
+INFO [user-isolation] /dev entries: 16 (threshold 30)
+PASS [user-isolation] only the minimal container /dev is present (16 entries)
+INFO [user-isolation] sa-token-read (service-account token readable): DENIED - cat: can't open '/var/run/secrets/kubernetes.io/serviceaccount/token': No such file or directory command terminated with exit code 1
+PASS [user-isolation] sa-token-read DENIED as expected for this profile
+===== END round-2/09-behavioral-probes.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-3/deployment-readiness =====
+deployment "escape-target" successfully rolled out
+===== END round-3/deployment-readiness (exit 0) =====
+
+===== BEGIN round-3/01-host-filesystem.sh (user-isolation) =====
+INFO [user-isolation] volume sources:
+web-content hostPath= configMap= secret= emptyDir=
+INFO [user-isolation] container mounts (name path readOnly):
+web-content /www readOnly=
+PASS [user-isolation] no hostPath volume is configured; scoped application mounts are recorded and allowed
+===== END round-3/01-host-filesystem.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-3/02-host-processes.sh (user-isolation) =====
+PASS [user-isolation] hostPID is disabled and the pod has an isolated process view
+===== END round-3/02-host-processes.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-3/03-host-network.sh (user-isolation) =====
+PASS [user-isolation] hostNetwork is disabled and pod network files are available
+===== END round-3/03-host-network.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-3/04-privileged-operations.sh (user-isolation) =====
+PASS [user-isolation] privileged mode is disabled and the workload runs as UID/GID 1000
+===== END round-3/04-privileged-operations.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-3/05-restricted-syscalls.sh (user-isolation) =====
+REVIEW [user-isolation] baseline is intentionally unconfined; no syscall-blocking claim is made
+===== END round-3/05-restricted-syscalls.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-3/06-runtime-information.sh (user-isolation) =====
+PASS [user-isolation] service-account token is not mounted in the workload
+===== END round-3/06-runtime-information.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-3/07-effective-security.sh (user-isolation) =====
+PASS [user-isolation] effective UID/GID are 1000/1000
+INFO [user-isolation] Linux capability masks: CapEff=0000000000000000 CapPrm=0000000000000000 CapBnd=00000000a80425fb
+REVIEW [user-isolation] this profile retains the runtime's default capabilities; observed CapEff=0000000000000000
+PASS [user-isolation] NoNewPrivs=1 matches the profile's privilege-escalation setting
+REVIEW [user-isolation] Seccomp is intentionally unconfined for this comparison profile (mode 0)
+===== END round-3/07-effective-security.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-3/08-workload-functionality.sh (user-isolation) =====
+PASS [user-isolation] HTTP workload returned the expected response
+PASS [user-isolation] Service targets the workload's configured HTTP port 8080
+PASS [user-isolation] web content uses a writable emptyDir mount at /www, not the container root filesystem
+===== END round-3/08-workload-functionality.sh (user-isolation) (exit 0) =====
+
+===== BEGIN round-3/09-behavioral-probes.sh (user-isolation) =====
+REVIEW [user-isolation] raw-socket inconclusive: ping_group_range unreadable
+command terminated with exit code 98
+INFO [user-isolation] chown (needs CAP_CHOWN): DENIED - chown: /www/.chown-probe: Operation not permitted command terminated with exit code 1
+PASS [user-isolation] chown DENIED as expected for this profile
+INFO [user-isolation] mount-tmpfs (needs CAP_SYS_ADMIN): DENIED - mount: permission denied (are you root?) command terminated with exit code 1
+PASS [user-isolation] mount-tmpfs DENIED as expected for this profile
+INFO [user-isolation] mknod (needs CAP_MKNOD): DENIED - mknod: /www/.mknod-probe: Operation not permitted command terminated with exit code 1
+PASS [user-isolation] mknod DENIED as expected for this profile
+INFO [user-isolation] dac-override (needs CAP_DAC_OVERRIDE): DENIED - cat: can't open '/www/.dac-probe': Permission denied command terminated with exit code 1
+PASS [user-isolation] dac-override DENIED as expected for this profile
+INFO [user-isolation] userns (user namespace creation): ALLOWED 
+PASS [user-isolation] userns ALLOWED as expected for this profile
+INFO [user-isolation] rootfs-write (write to the container root filesystem): DENIED - touch: /.rootfs-probe: Permission denied command terminated with exit code 1
+PASS [user-isolation] rootfs-write DENIED as expected for this profile
+INFO [user-isolation] www-write (write to the /www emptyDir): ALLOWED 
+PASS [user-isolation] www-write ALLOWED as expected for this profile
+INFO [user-isolation] runtime-socket (container runtime socket visible): DENIED - command terminated with exit code 1
+PASS [user-isolation] runtime-socket DENIED as expected for this profile
+INFO [user-isolation] unexpected mounts: /www <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/containers/target/d72a29ed (ext4) ; /etc/hostname <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/2849a3928b0053953b4c7abb488cecb1f52fd06cd9fbc7d320aaec6a1ad3b3e9/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/2849a3928b0053953b4c7abb488cecb1f52fd06cd9fbc7d320aaec6a1ad3b3e9/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
+REVIEW [user-isolation] host-backed mounts present; confirm each is intended (see INFO line)
+INFO [user-isolation] visible PIDs: 5 (threshold 25)
+PASS [user-isolation] pod sees only its own processes (5 PIDs)
+INFO [user-isolation] podIP=10.244.0.6 hostIP=172.18.0.2
+PASS [user-isolation] pod IP differs from the node IP
+INFO [user-isolation] /dev entries: 16 (threshold 30)
+PASS [user-isolation] only the minimal container /dev is present (16 entries)
+INFO [user-isolation] sa-token-read (service-account token readable): DENIED - cat: can't open '/var/run/secrets/kubernetes.io/serviceaccount/token': No such file or directory command terminated with exit code 1
+PASS [user-isolation] sa-token-read DENIED as expected for this profile
+===== END round-3/09-behavioral-probes.sh (user-isolation) (exit 0) =====
+

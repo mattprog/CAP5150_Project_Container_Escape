@@ -1,0 +1,13 @@
+Trivy evaluation summary
+Profile: hardened
+Created (UTC): 20261024T233357Z
+Full Trivy report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-hardened-20261024T233357Z.log
+
+CHECK                    RESULT
+------------------------ ------
+configuration            0
+image                    0
+configuration-html       0
+image-html               0
+Overall scanner result: PASS
+Note: vulnerability findings do not change scanner exit status; scanner or rendering errors do. REVIEW means the scanner completed without producing a vulnerability result.

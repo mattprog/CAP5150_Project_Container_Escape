@@ -1,0 +1,54 @@
+Container-escape evaluation summary
+Profile: capabilities
+Runtime rounds: 3
+Created (UTC): 20261024T233026Z
+Full log: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/evaluation-capabilities-20261024T233026Z.log
+
+CHECK                                      RESULT
+------------------------------------------ ------
+config-audit.sh                            PASS
+trivy-scan.sh                              PASS
+round-1/deployment-readiness               PASS
+round-1/01-host-filesystem.sh              PASS
+round-1/02-host-processes.sh               PASS
+round-1/03-host-network.sh                 PASS
+round-1/04-privileged-operations.sh        PASS
+round-1/05-restricted-syscalls.sh          PASS
+round-1/06-runtime-information.sh          PASS
+round-1/07-effective-security.sh           PASS
+round-1/08-workload-functionality.sh       PASS
+round-1/09-behavioral-probes.sh            PASS
+round-2/deployment-readiness               PASS
+round-2/01-host-filesystem.sh              PASS
+round-2/02-host-processes.sh               PASS
+round-2/03-host-network.sh                 PASS
+round-2/04-privileged-operations.sh        PASS
+round-2/05-restricted-syscalls.sh          PASS
+round-2/06-runtime-information.sh          PASS
+round-2/07-effective-security.sh           PASS
+round-2/08-workload-functionality.sh       PASS
+round-2/09-behavioral-probes.sh            PASS
+round-3/deployment-readiness               PASS
+round-3/01-host-filesystem.sh              PASS
+round-3/02-host-processes.sh               PASS
+round-3/03-host-network.sh                 PASS
+round-3/04-privileged-operations.sh        PASS
+round-3/05-restricted-syscalls.sh          PASS
+round-3/06-runtime-information.sh          PASS
+round-3/07-effective-security.sh           PASS
+round-3/08-workload-functionality.sh       PASS
+round-3/09-behavioral-probes.sh            PASS
+
+Runtime check pass counts:
+01-host-filesystem.sh              3/3
+02-host-processes.sh               3/3
+03-host-network.sh                 3/3
+04-privileged-operations.sh        3/3
+05-restricted-syscalls.sh          3/3
+06-runtime-information.sh          3/3
+07-effective-security.sh           3/3
+08-workload-functionality.sh       3/3
+09-behavioral-probes.sh            3/3
+Overall result: PASS
+Compatibility outcome is recorded by 08-workload-functionality.sh in each round.
+REVIEW lines do not fail a script unless it also exits nonzero.
