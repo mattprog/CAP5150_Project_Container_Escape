@@ -1,40 +1,40 @@
 Trivy evaluation report
-Profile: user-isolation
-Created (UTC): 20261025T000533Z
+Profile: seccomp
+Created (UTC): 20261025T002913Z
 Scope: Kubernetes configuration plus workload image vulnerabilities
-HTML configuration report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-user-isolation-20261025T000533Z.html
-HTML image report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-user-isolation-20261025T000533Z.html
+HTML configuration report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-seccomp-20261025T002913Z.html
+HTML image report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-seccomp-20261025T002913Z.html
 
-===== CONFIGURATION SCAN: /home/madmin/Downloads/CAP5150_Project_Container_Escape/environment/overlays/user-isolation =====
-2026-10-24T20:05:33-04:00	INFO	[misconfig] Misconfiguration scanning is enabled
-2026-10-24T20:05:33-04:00	INFO	[checks-client] No downloadable checks were loaded as --skip-check-update is enabled, loading from existing cache...
-2026-10-24T20:05:33-04:00	ERROR	[misconfig] Falling back to embedded checks	err="failed to check cache: cache does not exist at \"/home/madmin/.cache/trivy/policy/content\""
-2026-10-24T20:05:35-04:00	INFO	Detected config files	num=1
+===== CONFIGURATION SCAN: /home/madmin/Downloads/CAP5150_Project_Container_Escape/environment/overlays/seccomp =====
+2026-10-24T20:29:13-04:00	INFO	[misconfig] Misconfiguration scanning is enabled
+2026-10-24T20:29:13-04:00	INFO	[checks-client] No downloadable checks were loaded as --skip-check-update is enabled, loading from existing cache...
+2026-10-24T20:29:13-04:00	ERROR	[misconfig] Falling back to embedded checks	err="failed to check cache: cache does not exist at \"/home/madmin/.cache/trivy/policy/content\""
+2026-10-24T20:29:15-04:00	INFO	Detected config files	num=1
 
 Report Summary
 
-┌───────────────────────────────┬────────────┬───────────────────┐
-│            Target             │    Type    │ Misconfigurations │
-├───────────────────────────────┼────────────┼───────────────────┤
-│ user-isolation-kustomize.yaml │ kubernetes │         8         │
-└───────────────────────────────┴────────────┴───────────────────┘
+┌────────────────────────┬────────────┬───────────────────┐
+│         Target         │    Type    │ Misconfigurations │
+├────────────────────────┼────────────┼───────────────────┤
+│ seccomp-kustomize.yaml │ kubernetes │        12         │
+└────────────────────────┴────────────┴───────────────────┘
 Legend:
 - '-': Not scanned
 - '0': Clean (no security findings detected)
 
 
-user-isolation-kustomize.yaml (kubernetes)
-==========================================
-Tests: 107 (SUCCESSES: 99, FAILURES: 8)
-Failures: 8 (UNKNOWN: 0, LOW: 6, MEDIUM: 1, HIGH: 1, CRITICAL: 0)
+seccomp-kustomize.yaml (kubernetes)
+===================================
+Tests: 111 (SUCCESSES: 99, FAILURES: 12)
+Failures: 12 (UNKNOWN: 0, LOW: 6, MEDIUM: 3, HIGH: 3, CRITICAL: 0)
 
-KSV-0003 (LOW): Container 'target' of Deployment 'escape-target' should add 'ALL' to 'securityContext.capabilities.drop'
+KSV-0001 (MEDIUM): Container 'target' of Deployment 'escape-target' should set 'securityContext.allowPrivilegeEscalation' to false
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
-The container should drop all default capabilities and add only those that are needed for its execution.
+A program inside the container can elevate its own privileges and run as root, which might give the program control over the container and node.
 
-See https://avd.aquasec.com/misconfig/ksv-0003
+See https://avd.aquasec.com/misconfig/ksv-0001
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
- user-isolation-kustomize.yaml:47-79
+ seccomp-kustomize.yaml:47-82
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   47 ┌       - command:
   48 │         - sh
@@ -49,13 +49,55 @@ See https://avd.aquasec.com/misconfig/ksv-0003
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
-KSV-0004 (LOW): Container 'target' of 'deployment' 'escape-target' in 'escape-user-isolation' namespace should set securityContext.capabilities.drop
+KSV-0003 (LOW): Container 'target' of Deployment 'escape-target' should add 'ALL' to 'securityContext.capabilities.drop'
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+The container should drop all default capabilities and add only those that are needed for its execution.
+
+See https://avd.aquasec.com/misconfig/ksv-0003
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ seccomp-kustomize.yaml:47-82
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  47 ┌       - command:
+  48 │         - sh
+  49 │         - -c
+  50 │         - |
+  51 │           printf 'container-escape-study-ok\n' > /www/index.html
+  52 │           while true; do
+  53 │           { printf 'HTTP/1.0 200 OK\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\n'; cat /www/index.html; } | nc -l -p "$HTTP_PORT" >/dev/null || sleep 1
+  54 │           done
+  55 └         env:
+  ..   
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+KSV-0004 (LOW): Container 'target' of 'deployment' 'escape-target' in 'escape-seccomp' namespace should set securityContext.capabilities.drop
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 Security best practices require containers to run with minimal required capabilities.
 
 See https://avd.aquasec.com/misconfig/ksv-0004
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
- user-isolation-kustomize.yaml:47-79
+ seccomp-kustomize.yaml:47-82
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  47 ┌       - command:
+  48 │         - sh
+  49 │         - -c
+  50 │         - |
+  51 │           printf 'container-escape-study-ok\n' > /www/index.html
+  52 │           while true; do
+  53 │           { printf 'HTTP/1.0 200 OK\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\n'; cat /www/index.html; } | nc -l -p "$HTTP_PORT" >/dev/null || sleep 1
+  54 │           done
+  55 └         env:
+  ..   
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+KSV-0012 (MEDIUM): Container 'target' of Deployment 'escape-target' should set 'securityContext.runAsNonRoot' to true
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+Force the running image to run as a non-root user to ensure least privileges.
+
+See https://avd.aquasec.com/misconfig/ksv-0012
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ seccomp-kustomize.yaml:47-82
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   47 ┌       - command:
   48 │         - sh
@@ -76,7 +118,7 @@ An immutable root file system prevents applications from writing to their local 
 
 See https://avd.aquasec.com/misconfig/ksv-0014
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
- user-isolation-kustomize.yaml:47-79
+ seccomp-kustomize.yaml:47-82
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   47 ┌       - command:
   48 │         - sh
@@ -97,7 +139,7 @@ Force the container to run with user ID > 10000 to avoid conflicts with the host
 
 See https://avd.aquasec.com/misconfig/ksv-0020
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
- user-isolation-kustomize.yaml:47-79
+ seccomp-kustomize.yaml:47-82
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   47 ┌       - command:
   48 │         - sh
@@ -118,7 +160,7 @@ Force the container to run with group ID > 10000 to avoid conflicts with the hos
 
 See https://avd.aquasec.com/misconfig/ksv-0021
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
- user-isolation-kustomize.yaml:47-79
+ seccomp-kustomize.yaml:47-82
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   47 ┌       - command:
   48 │         - sh
@@ -133,13 +175,13 @@ See https://avd.aquasec.com/misconfig/ksv-0021
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
-KSV-0030 (LOW): Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'
+KSV-0022 (MEDIUM): Container 'target' of Deployment 'escape-target' should not set 'securityContext.capabilities.add'
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
-According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.
+According to pod security standard 'Capabilities', capabilities beyond the default set must not be added.
 
-See https://avd.aquasec.com/misconfig/ksv-0030
+See https://avd.aquasec.com/misconfig/ksv-0022
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
- user-isolation-kustomize.yaml:47-79
+ seccomp-kustomize.yaml:47-82
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   47 ┌       - command:
   48 │         - sh
@@ -154,23 +196,23 @@ See https://avd.aquasec.com/misconfig/ksv-0030
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
-KSV-0104 (MEDIUM): container "target" of deployment "escape-target" in "escape-user-isolation" namespace should specify a seccomp profile
+KSV-0105 (LOW): securityContext.runAsUser should be set to a value greater than 0
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
-A program inside the container can bypass Seccomp protection policies.
+Containers should be forbidden from running with a root UID.
 
-See https://avd.aquasec.com/misconfig/ksv-0104
+See https://avd.aquasec.com/misconfig/ksv-0105
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
- user-isolation-kustomize.yaml:47-79
+ seccomp-kustomize.yaml:68-78
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-  47 ┌       - command:
-  48 │         - sh
-  49 │         - -c
-  50 │         - |
-  51 │           printf 'container-escape-study-ok\n' > /www/index.html
-  52 │           while true; do
-  53 │           { printf 'HTTP/1.0 200 OK\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\n'; cat /www/index.html; } | nc -l -p "$HTTP_PORT" >/dev/null || sleep 1
-  54 │           done
-  55 └         env:
+  68 ┌         securityContext:
+  69 │           allowPrivilegeEscalation: true
+  70 │           capabilities:
+  71 │             add:
+  72 │             - NET_RAW
+  73 │           privileged: false
+  74 │           runAsGroup: 0
+  75 │           runAsNonRoot: false
+  76 └           runAsUser: 0
   ..   
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -181,7 +223,7 @@ Containers must drop ALL capabilities, and are only permitted to add back the NE
 
 See https://avd.aquasec.com/misconfig/ksv-0106
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
- user-isolation-kustomize.yaml:47-79
+ seccomp-kustomize.yaml:47-82
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   47 ┌       - command:
   48 │         - sh
@@ -196,14 +238,43 @@ See https://avd.aquasec.com/misconfig/ksv-0106
 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
+KSV-0118 (HIGH): deployment escape-target in escape-seccomp namespace is using the default security context, which allows root privileges
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+Security context controls the allocation of security parameters for the pod/container/volume, ensuring the appropriate level of protection. Relying on default security context may expose vulnerabilities to potential attacks that rely on privileged access.
+
+See https://avd.aquasec.com/misconfig/ksv-0118
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ seccomp-kustomize.yaml:44-85
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  44 ┌     spec:
+  45 │       automountServiceAccountToken: false
+  46 │       containers:
+  47 │       - command:
+  48 │         - sh
+  49 │         - -c
+  50 │         - |
+  51 │           printf 'container-escape-study-ok\n' > /www/index.html
+  52 └           while true; do
+  ..   
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+KSV-0119 (HIGH): container target of deployment escape-target in escape-seccomp namespace should not include 'NET_RAW' in securityContext.capabilities.add
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+The NET_RAW capability grants attackers the ability to eavesdrop on network traffic or generate IP traffic with falsified source addresses, posing serious security risks.
+
+See https://avd.aquasec.com/misconfig/ksv-0119
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+
 Configuration scanner exit status: 0
 
 ===== IMAGE SCAN =====
 Image: alpine:3.24.3
-2026-10-24T20:05:37-04:00	INFO	[vuln] Vulnerability scanning is enabled
-2026-10-24T20:05:44-04:00	INFO	Detected OS	family="alpine" version="3.24.3"
-2026-10-24T20:05:44-04:00	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=16
-2026-10-24T20:05:44-04:00	INFO	Number of language-specific files	num=0
+2026-10-24T20:29:16-04:00	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-24T20:29:23-04:00	INFO	Detected OS	family="alpine" version="3.24.3"
+2026-10-24T20:29:23-04:00	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=16
+2026-10-24T20:29:23-04:00	INFO	Number of language-specific files	num=0
 
 Report Summary
 
@@ -215,12 +286,6 @@ Report Summary
 Legend:
 - '-': Not scanned
 - '0': Clean (no security findings detected)
-
-
-📣 [34mNotices:[0m
-  - Version 0.76.1 of Trivy is now available, current version is 0.75.0
-
-To suppress version checks, run Trivy scans with the --skip-version-check flag
 
 Image scanner exit status: 0
 

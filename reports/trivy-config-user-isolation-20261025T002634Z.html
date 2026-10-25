@@ -51,7 +51,7 @@
       }
       a.toggle-more-links { cursor: pointer; }
     </style>
-    <title>capabilities-kustomize.yaml - Trivy Report - 2026-10-24 20:07:11.29821276 -0400 EDT m=+1.697983427 </title>
+    <title>user-isolation-kustomize.yaml - Trivy Report - 2026-10-24 20:26:37.529090768 -0400 EDT m=+1.269066765 </title>
     <script>
       window.onload = function() {
         document.querySelectorAll('td.links').forEach(function(linkCell) {
@@ -81,7 +81,7 @@
     </script>
   </head>
   <body>
-    <h1>capabilities-kustomize.yaml - Trivy Report - 2026-10-24 20:07:11.298299157 -0400 EDT m=+1.698073124</h1>
+    <h1>user-isolation-kustomize.yaml - Trivy Report - 2026-10-24 20:26:37.529176668 -0400 EDT m=+1.269152065</h1>
     <table>
       <tr class="group-header"><th colspan="6">kubernetes</th></tr>
       <tr><th colspan="6">No Vulnerabilities found</th></tr>
@@ -92,27 +92,27 @@
         <th>Severity</th>
         <th>Message</th>
       </tr>
-      <tr class="severity-MEDIUM">
+      <tr class="severity-LOW">
         <td class="misconf-type">Kubernetes Security Check</td>
-        <td>KSV-0001</td>
-        <td class="misconf-check">Can elevate its own privileges</td>
-        <td class="severity">MEDIUM</td>
+        <td>KSV-0003</td>
+        <td class="misconf-check">Default capabilities: some containers do not drop all</td>
+        <td class="severity">LOW</td>
         <td class="link" data-more-links="off"  style="white-space:normal;">
-          Container &#39;target&#39; of Deployment &#39;escape-target&#39; should set &#39;securityContext.allowPrivilegeEscalation&#39; to false
+          Container &#39;target&#39; of Deployment &#39;escape-target&#39; should add &#39;ALL&#39; to &#39;securityContext.capabilities.drop&#39;
           <br>
-            <a href="https://avd.aquasec.com/misconfig/ksv-0001">https://avd.aquasec.com/misconfig/ksv-0001</a>
+            <a href="https://avd.aquasec.com/misconfig/ksv-0003">https://avd.aquasec.com/misconfig/ksv-0003</a>
           </br>
         </td>
       </tr>
-      <tr class="severity-MEDIUM">
+      <tr class="severity-LOW">
         <td class="misconf-type">Kubernetes Security Check</td>
-        <td>KSV-0012</td>
-        <td class="misconf-check">Runs as root user</td>
-        <td class="severity">MEDIUM</td>
+        <td>KSV-0004</td>
+        <td class="misconf-check">Default capabilities: some containers do not drop any</td>
+        <td class="severity">LOW</td>
         <td class="link" data-more-links="off"  style="white-space:normal;">
-          Container &#39;target&#39; of Deployment &#39;escape-target&#39; should set &#39;securityContext.runAsNonRoot&#39; to true
+          Container &#39;target&#39; of &#39;deployment&#39; &#39;escape-target&#39; in &#39;escape-user-isolation&#39; namespace should set securityContext.capabilities.drop
           <br>
-            <a href="https://avd.aquasec.com/misconfig/ksv-0012">https://avd.aquasec.com/misconfig/ksv-0012</a>
+            <a href="https://avd.aquasec.com/misconfig/ksv-0004">https://avd.aquasec.com/misconfig/ksv-0004</a>
           </br>
         </td>
       </tr>
@@ -152,18 +152,6 @@
           </br>
         </td>
       </tr>
-      <tr class="severity-MEDIUM">
-        <td class="misconf-type">Kubernetes Security Check</td>
-        <td>KSV-0022</td>
-        <td class="misconf-check">Specific capabilities added</td>
-        <td class="severity">MEDIUM</td>
-        <td class="link" data-more-links="off"  style="white-space:normal;">
-          Container &#39;target&#39; of Deployment &#39;escape-target&#39; should not set &#39;securityContext.capabilities.add&#39;
-          <br>
-            <a href="https://avd.aquasec.com/misconfig/ksv-0022">https://avd.aquasec.com/misconfig/ksv-0022</a>
-          </br>
-        </td>
-      </tr>
       <tr class="severity-LOW">
         <td class="misconf-type">Kubernetes Security Check</td>
         <td>KSV-0030</td>
@@ -182,7 +170,7 @@
         <td class="misconf-check">Seccomp policies disabled</td>
         <td class="severity">MEDIUM</td>
         <td class="link" data-more-links="off"  style="white-space:normal;">
-          container &#34;target&#34; of deployment &#34;escape-target&#34; in &#34;escape-capabilities&#34; namespace should specify a seccomp profile
+          container &#34;target&#34; of deployment &#34;escape-target&#34; in &#34;escape-user-isolation&#34; namespace should specify a seccomp profile
           <br>
             <a href="https://avd.aquasec.com/misconfig/ksv-0104">https://avd.aquasec.com/misconfig/ksv-0104</a>
           </br>
@@ -190,25 +178,13 @@
       </tr>
       <tr class="severity-LOW">
         <td class="misconf-type">Kubernetes Security Check</td>
-        <td>KSV-0105</td>
-        <td class="misconf-check">Containers must not set runAsUser to 0</td>
+        <td>KSV-0106</td>
+        <td class="misconf-check">Container capabilities must only include NET_BIND_SERVICE</td>
         <td class="severity">LOW</td>
         <td class="link" data-more-links="off"  style="white-space:normal;">
-          securityContext.runAsUser should be set to a value greater than 0
+          container should drop all
           <br>
-            <a href="https://avd.aquasec.com/misconfig/ksv-0105">https://avd.aquasec.com/misconfig/ksv-0105</a>
-          </br>
-        </td>
-      </tr>
-      <tr class="severity-HIGH">
-        <td class="misconf-type">Kubernetes Security Check</td>
-        <td>KSV-0118</td>
-        <td class="misconf-check">Default security context configured</td>
-        <td class="severity">HIGH</td>
-        <td class="link" data-more-links="off"  style="white-space:normal;">
-          deployment escape-target in escape-capabilities namespace is using the default security context, which allows root privileges
-          <br>
-            <a href="https://avd.aquasec.com/misconfig/ksv-0118">https://avd.aquasec.com/misconfig/ksv-0118</a>
+            <a href="https://avd.aquasec.com/misconfig/ksv-0106">https://avd.aquasec.com/misconfig/ksv-0106</a>
           </br>
         </td>
       </tr>

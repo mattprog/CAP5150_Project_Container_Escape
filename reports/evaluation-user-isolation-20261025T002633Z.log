@@ -1,7 +1,7 @@
 Container-escape evaluation report
 Profile: user-isolation
 Runtime rounds: 3
-Created (UTC): 20261025T000531Z
+Created (UTC): 20261025T002633Z
 Static audits and Trivy run once; readiness and in-pod checks run each round.
 Each command's complete stdout and stderr follows without filtering.
 
@@ -21,16 +21,16 @@ SYSCALLS and the SECCOMP control read the same field; RUNTIME-INFO is the servic
 ===== BEGIN trivy-scan.sh (user-isolation) =====
 Trivy evaluation report
 Profile: user-isolation
-Created (UTC): 20261025T000533Z
+Created (UTC): 20261025T002634Z
 Scope: Kubernetes configuration plus workload image vulnerabilities
-HTML configuration report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-user-isolation-20261025T000533Z.html
-HTML image report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-user-isolation-20261025T000533Z.html
+HTML configuration report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-user-isolation-20261025T002634Z.html
+HTML image report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-user-isolation-20261025T002634Z.html
 
 ===== CONFIGURATION SCAN: /home/madmin/Downloads/CAP5150_Project_Container_Escape/environment/overlays/user-isolation =====
-2026-10-24T20:05:33-04:00	INFO	[misconfig] Misconfiguration scanning is enabled
-2026-10-24T20:05:33-04:00	INFO	[checks-client] No downloadable checks were loaded as --skip-check-update is enabled, loading from existing cache...
-2026-10-24T20:05:33-04:00	ERROR	[misconfig] Falling back to embedded checks	err="failed to check cache: cache does not exist at \"/home/madmin/.cache/trivy/policy/content\""
-2026-10-24T20:05:35-04:00	INFO	Detected config files	num=1
+2026-10-24T20:26:35-04:00	INFO	[misconfig] Misconfiguration scanning is enabled
+2026-10-24T20:26:35-04:00	INFO	[checks-client] No downloadable checks were loaded as --skip-check-update is enabled, loading from existing cache...
+2026-10-24T20:26:35-04:00	ERROR	[misconfig] Falling back to embedded checks	err="failed to check cache: cache does not exist at \"/home/madmin/.cache/trivy/policy/content\""
+2026-10-24T20:26:36-04:00	INFO	Detected config files	num=1
 
 Report Summary
 
@@ -221,10 +221,10 @@ Configuration scanner exit status: 0
 
 ===== IMAGE SCAN =====
 Image: alpine:3.24.3
-2026-10-24T20:05:37-04:00	INFO	[vuln] Vulnerability scanning is enabled
-2026-10-24T20:05:44-04:00	INFO	Detected OS	family="alpine" version="3.24.3"
-2026-10-24T20:05:44-04:00	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=16
-2026-10-24T20:05:44-04:00	INFO	Number of language-specific files	num=0
+2026-10-24T20:26:37-04:00	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-24T20:26:44-04:00	INFO	Detected OS	family="alpine" version="3.24.3"
+2026-10-24T20:26:44-04:00	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=16
+2026-10-24T20:26:44-04:00	INFO	Number of language-specific files	num=0
 
 Report Summary
 
@@ -237,20 +237,14 @@ Legend:
 - '-': Not scanned
 - '0': Clean (no security findings detected)
 
-
-📣 [34mNotices:[0m
-  - Version 0.76.1 of Trivy is now available, current version is 0.75.0
-
-To suppress version checks, run Trivy scans with the --skip-version-check flag
-
 Image scanner exit status: 0
 
 Trivy findings are reported for review; --exit-code 0 prevents findings from being confused with scanner errors.
 This scan supplements, but does not replace, the Kubernetes escape-control tests.
-Trivy report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-user-isolation-20261025T000533Z.log
-Trivy summary: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-summary-user-isolation-20261025T000533Z.txt
-Trivy configuration HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-user-isolation-20261025T000533Z.html
-Trivy image HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-user-isolation-20261025T000533Z.html
+Trivy report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-user-isolation-20261025T002634Z.log
+Trivy summary: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-summary-user-isolation-20261025T002634Z.txt
+Trivy configuration HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-user-isolation-20261025T002634Z.html
+Trivy image HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-user-isolation-20261025T002634Z.html
 ===== END trivy-scan.sh (user-isolation) (exit 0) =====
 
 ===== BEGIN round-1/deployment-readiness =====
@@ -318,7 +312,7 @@ INFO [user-isolation] www-write (write to the /www emptyDir): ALLOWED
 PASS [user-isolation] www-write ALLOWED as expected for this profile
 INFO [user-isolation] runtime-socket (container runtime socket visible): DENIED - command terminated with exit code 1
 PASS [user-isolation] runtime-socket DENIED as expected for this profile
-INFO [user-isolation] unexpected mounts: /www <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/containers/target/e70b318b (ext4) ; /etc/hostname <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/18777c1d591cb72930211fe979de187ecda8c46ea48c9e04728e3ce4757e24ae/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/18777c1d591cb72930211fe979de187ecda8c46ea48c9e04728e3ce4757e24ae/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
+INFO [user-isolation] unexpected mounts: /www <- /var/lib/docker/volumes/aae73673452018c6fd76a577e4d33b9a120d118bdeef6ff19209e9c14ae8a1dc/_data/lib/kubelet/pods/311a8534-80e0-4c22-ab69-33d552e29cd0/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/aae73673452018c6fd76a577e4d33b9a120d118bdeef6ff19209e9c14ae8a1dc/_data/lib/kubelet/pods/311a8534-80e0-4c22-ab69-33d552e29cd0/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/aae73673452018c6fd76a577e4d33b9a120d118bdeef6ff19209e9c14ae8a1dc/_data/lib/kubelet/pods/311a8534-80e0-4c22-ab69-33d552e29cd0/containers/target/cea5a570 (ext4) ; /etc/hostname <- /var/lib/docker/volumes/aae73673452018c6fd76a577e4d33b9a120d118bdeef6ff19209e9c14ae8a1dc/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/011abdb6af2b6b96d8deeb7a6a19d82c8eee91dbe8643feeffb245d576d22011/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/aae73673452018c6fd76a577e4d33b9a120d118bdeef6ff19209e9c14ae8a1dc/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/011abdb6af2b6b96d8deeb7a6a19d82c8eee91dbe8643feeffb245d576d22011/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
 REVIEW [user-isolation] host-backed mounts present; confirm each is intended (see INFO line)
 INFO [user-isolation] visible PIDs: 5 (threshold 25)
 PASS [user-isolation] pod sees only its own processes (5 PIDs)
@@ -395,7 +389,7 @@ INFO [user-isolation] www-write (write to the /www emptyDir): ALLOWED
 PASS [user-isolation] www-write ALLOWED as expected for this profile
 INFO [user-isolation] runtime-socket (container runtime socket visible): DENIED - command terminated with exit code 1
 PASS [user-isolation] runtime-socket DENIED as expected for this profile
-INFO [user-isolation] unexpected mounts: /www <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/containers/target/e70b318b (ext4) ; /etc/hostname <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/18777c1d591cb72930211fe979de187ecda8c46ea48c9e04728e3ce4757e24ae/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/18777c1d591cb72930211fe979de187ecda8c46ea48c9e04728e3ce4757e24ae/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
+INFO [user-isolation] unexpected mounts: /www <- /var/lib/docker/volumes/aae73673452018c6fd76a577e4d33b9a120d118bdeef6ff19209e9c14ae8a1dc/_data/lib/kubelet/pods/311a8534-80e0-4c22-ab69-33d552e29cd0/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/aae73673452018c6fd76a577e4d33b9a120d118bdeef6ff19209e9c14ae8a1dc/_data/lib/kubelet/pods/311a8534-80e0-4c22-ab69-33d552e29cd0/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/aae73673452018c6fd76a577e4d33b9a120d118bdeef6ff19209e9c14ae8a1dc/_data/lib/kubelet/pods/311a8534-80e0-4c22-ab69-33d552e29cd0/containers/target/cea5a570 (ext4) ; /etc/hostname <- /var/lib/docker/volumes/aae73673452018c6fd76a577e4d33b9a120d118bdeef6ff19209e9c14ae8a1dc/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/011abdb6af2b6b96d8deeb7a6a19d82c8eee91dbe8643feeffb245d576d22011/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/aae73673452018c6fd76a577e4d33b9a120d118bdeef6ff19209e9c14ae8a1dc/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/011abdb6af2b6b96d8deeb7a6a19d82c8eee91dbe8643feeffb245d576d22011/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
 REVIEW [user-isolation] host-backed mounts present; confirm each is intended (see INFO line)
 INFO [user-isolation] visible PIDs: 5 (threshold 25)
 PASS [user-isolation] pod sees only its own processes (5 PIDs)
@@ -472,7 +466,7 @@ INFO [user-isolation] www-write (write to the /www emptyDir): ALLOWED
 PASS [user-isolation] www-write ALLOWED as expected for this profile
 INFO [user-isolation] runtime-socket (container runtime socket visible): DENIED - command terminated with exit code 1
 PASS [user-isolation] runtime-socket DENIED as expected for this profile
-INFO [user-isolation] unexpected mounts: /www <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/containers/target/e70b318b (ext4) ; /etc/hostname <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/18777c1d591cb72930211fe979de187ecda8c46ea48c9e04728e3ce4757e24ae/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/18777c1d591cb72930211fe979de187ecda8c46ea48c9e04728e3ce4757e24ae/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
+INFO [user-isolation] unexpected mounts: /www <- /var/lib/docker/volumes/aae73673452018c6fd76a577e4d33b9a120d118bdeef6ff19209e9c14ae8a1dc/_data/lib/kubelet/pods/311a8534-80e0-4c22-ab69-33d552e29cd0/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/aae73673452018c6fd76a577e4d33b9a120d118bdeef6ff19209e9c14ae8a1dc/_data/lib/kubelet/pods/311a8534-80e0-4c22-ab69-33d552e29cd0/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/aae73673452018c6fd76a577e4d33b9a120d118bdeef6ff19209e9c14ae8a1dc/_data/lib/kubelet/pods/311a8534-80e0-4c22-ab69-33d552e29cd0/containers/target/cea5a570 (ext4) ; /etc/hostname <- /var/lib/docker/volumes/aae73673452018c6fd76a577e4d33b9a120d118bdeef6ff19209e9c14ae8a1dc/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/011abdb6af2b6b96d8deeb7a6a19d82c8eee91dbe8643feeffb245d576d22011/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/aae73673452018c6fd76a577e4d33b9a120d118bdeef6ff19209e9c14ae8a1dc/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/011abdb6af2b6b96d8deeb7a6a19d82c8eee91dbe8643feeffb245d576d22011/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
 REVIEW [user-isolation] host-backed mounts present; confirm each is intended (see INFO line)
 INFO [user-isolation] visible PIDs: 5 (threshold 25)
 PASS [user-isolation] pod sees only its own processes (5 PIDs)

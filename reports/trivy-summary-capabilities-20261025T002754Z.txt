@@ -1,7 +1,7 @@
 Trivy evaluation summary
-Profile: user-isolation
-Created (UTC): 20261025T000533Z
-Full Trivy report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-user-isolation-20261025T000533Z.log
+Profile: capabilities
+Created (UTC): 20261025T002754Z
+Full Trivy report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-capabilities-20261025T002754Z.log
 
 CHECK                    RESULT
 ------------------------ ------
