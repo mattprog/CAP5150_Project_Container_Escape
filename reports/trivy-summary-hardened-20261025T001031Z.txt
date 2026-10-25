@@ -1,7 +1,7 @@
 Trivy evaluation summary
-Profile: seccomp
-Created (UTC): 20261024T233205Z
-Full Trivy report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-seccomp-20261024T233205Z.log
+Profile: hardened
+Created (UTC): 20261025T001031Z
+Full Trivy report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-hardened-20261025T001031Z.log
 
 CHECK                    RESULT
 ------------------------ ------

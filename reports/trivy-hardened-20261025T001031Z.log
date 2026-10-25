@@ -1,0 +1,54 @@
+Trivy evaluation report
+Profile: hardened
+Created (UTC): 20261025T001031Z
+Scope: Kubernetes configuration plus workload image vulnerabilities
+HTML configuration report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-hardened-20261025T001031Z.html
+HTML image report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-hardened-20261025T001031Z.html
+
+===== CONFIGURATION SCAN: /home/madmin/Downloads/CAP5150_Project_Container_Escape/environment/overlays/hardened =====
+2026-10-24T20:10:32-04:00	INFO	[misconfig] Misconfiguration scanning is enabled
+2026-10-24T20:10:32-04:00	INFO	[checks-client] No downloadable checks were loaded as --skip-check-update is enabled, loading from existing cache...
+2026-10-24T20:10:32-04:00	ERROR	[misconfig] Falling back to embedded checks	err="failed to check cache: cache does not exist at \"/home/madmin/.cache/trivy/policy/content\""
+2026-10-24T20:10:33-04:00	INFO	Detected config files	num=1
+
+Report Summary
+
+┌─────────────────────────┬────────────┬───────────────────┐
+│         Target          │    Type    │ Misconfigurations │
+├─────────────────────────┼────────────┼───────────────────┤
+│ hardened-kustomize.yaml │ kubernetes │         0         │
+└─────────────────────────┴────────────┴───────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+Configuration scanner exit status: 0
+
+===== IMAGE SCAN =====
+Image: alpine:3.24.3
+2026-10-24T20:10:36-04:00	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-24T20:10:43-04:00	INFO	Detected OS	family="alpine" version="3.24.3"
+2026-10-24T20:10:43-04:00	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=16
+2026-10-24T20:10:43-04:00	INFO	Number of language-specific files	num=0
+
+Report Summary
+
+┌───────────────────────────────┬────────┬─────────────────┐
+│            Target             │  Type  │ Vulnerabilities │
+├───────────────────────────────┼────────┼─────────────────┤
+│ alpine:3.24.3 (alpine 3.24.3) │ alpine │        0        │
+└───────────────────────────────┴────────┴─────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+📣 [34mNotices:[0m
+  - Version 0.76.1 of Trivy is now available, current version is 0.75.0
+
+To suppress version checks, run Trivy scans with the --skip-version-check flag
+
+Image scanner exit status: 0
+
+Trivy findings are reported for review; --exit-code 0 prevents findings from being confused with scanner errors.
+This scan supplements, but does not replace, the Kubernetes escape-control tests.

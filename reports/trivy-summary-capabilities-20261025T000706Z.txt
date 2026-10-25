@@ -1,7 +1,7 @@
 Trivy evaluation summary
-Profile: hardened
-Created (UTC): 20261024T233357Z
-Full Trivy report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-hardened-20261024T233357Z.log
+Profile: capabilities
+Created (UTC): 20261025T000706Z
+Full Trivy report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-capabilities-20261025T000706Z.log
 
 CHECK                    RESULT
 ------------------------ ------

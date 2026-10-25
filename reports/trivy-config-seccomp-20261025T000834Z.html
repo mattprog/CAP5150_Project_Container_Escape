@@ -51,7 +51,7 @@
       }
       a.toggle-more-links { cursor: pointer; }
     </style>
-    <title>baseline-kustomize.yaml - Trivy Report - 2026-10-24 19:27:27.625598865 -0400 EDT m=+1.673665683 </title>
+    <title>seccomp-kustomize.yaml - Trivy Report - 2026-10-24 20:08:38.438623457 -0400 EDT m=+1.526035982 </title>
     <script>
       window.onload = function() {
         document.querySelectorAll('td.links').forEach(function(linkCell) {
@@ -81,7 +81,7 @@
     </script>
   </head>
   <body>
-    <h1>baseline-kustomize.yaml - Trivy Report - 2026-10-24 19:27:27.625674974 -0400 EDT m=+1.673741693</h1>
+    <h1>seccomp-kustomize.yaml - Trivy Report - 2026-10-24 20:08:38.438743555 -0400 EDT m=+1.526156679</h1>
     <table>
       <tr class="group-header"><th colspan="6">kubernetes</th></tr>
       <tr><th colspan="6">No Vulnerabilities found</th></tr>
@@ -122,7 +122,7 @@
         <td class="misconf-check">Default capabilities: some containers do not drop any</td>
         <td class="severity">LOW</td>
         <td class="link" data-more-links="off"  style="white-space:normal;">
-          Container &#39;target&#39; of &#39;deployment&#39; &#39;escape-target&#39; in &#39;escape-baseline&#39; namespace should set securityContext.capabilities.drop
+          Container &#39;target&#39; of &#39;deployment&#39; &#39;escape-target&#39; in &#39;escape-seccomp&#39; namespace should set securityContext.capabilities.drop
           <br>
             <a href="https://avd.aquasec.com/misconfig/ksv-0004">https://avd.aquasec.com/misconfig/ksv-0004</a>
           </br>
@@ -190,30 +190,6 @@
       </tr>
       <tr class="severity-LOW">
         <td class="misconf-type">Kubernetes Security Check</td>
-        <td>KSV-0030</td>
-        <td class="misconf-check">Runtime/Default Seccomp profile not set</td>
-        <td class="severity">LOW</td>
-        <td class="link" data-more-links="off"  style="white-space:normal;">
-          Either Pod or Container should set &#39;securityContext.seccompProfile.type&#39; to &#39;RuntimeDefault&#39;
-          <br>
-            <a href="https://avd.aquasec.com/misconfig/ksv-0030">https://avd.aquasec.com/misconfig/ksv-0030</a>
-          </br>
-        </td>
-      </tr>
-      <tr class="severity-MEDIUM">
-        <td class="misconf-type">Kubernetes Security Check</td>
-        <td>KSV-0104</td>
-        <td class="misconf-check">Seccomp policies disabled</td>
-        <td class="severity">MEDIUM</td>
-        <td class="link" data-more-links="off"  style="white-space:normal;">
-          container &#34;target&#34; of deployment &#34;escape-target&#34; in &#34;escape-baseline&#34; namespace should specify a seccomp profile
-          <br>
-            <a href="https://avd.aquasec.com/misconfig/ksv-0104">https://avd.aquasec.com/misconfig/ksv-0104</a>
-          </br>
-        </td>
-      </tr>
-      <tr class="severity-LOW">
-        <td class="misconf-type">Kubernetes Security Check</td>
         <td>KSV-0105</td>
         <td class="misconf-check">Containers must not set runAsUser to 0</td>
         <td class="severity">LOW</td>
@@ -242,7 +218,7 @@
         <td class="misconf-check">Default security context configured</td>
         <td class="severity">HIGH</td>
         <td class="link" data-more-links="off"  style="white-space:normal;">
-          deployment escape-target in escape-baseline namespace is using the default security context, which allows root privileges
+          deployment escape-target in escape-seccomp namespace is using the default security context, which allows root privileges
           <br>
             <a href="https://avd.aquasec.com/misconfig/ksv-0118">https://avd.aquasec.com/misconfig/ksv-0118</a>
           </br>
@@ -254,7 +230,7 @@
         <td class="misconf-check">NET_RAW capability added</td>
         <td class="severity">HIGH</td>
         <td class="link" data-more-links="off"  style="white-space:normal;">
-          container target of deployment escape-target in escape-baseline namespace should not include &#39;NET_RAW&#39; in securityContext.capabilities.add
+          container target of deployment escape-target in escape-seccomp namespace should not include &#39;NET_RAW&#39; in securityContext.capabilities.add
           <br>
             <a href="https://avd.aquasec.com/misconfig/ksv-0119">https://avd.aquasec.com/misconfig/ksv-0119</a>
           </br>

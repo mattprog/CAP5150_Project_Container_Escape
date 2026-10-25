@@ -51,7 +51,7 @@
       }
       a.toggle-more-links { cursor: pointer; }
     </style>
-    <title>seccomp-kustomize.yaml - Trivy Report - 2026-10-24 19:32:11.313232919 -0400 EDT m=+2.321717531 </title>
+    <title>user-isolation-kustomize.yaml - Trivy Report - 2026-10-24 20:05:37.133691841 -0400 EDT m=+1.542582546 </title>
     <script>
       window.onload = function() {
         document.querySelectorAll('td.links').forEach(function(linkCell) {
@@ -81,7 +81,7 @@
     </script>
   </head>
   <body>
-    <h1>seccomp-kustomize.yaml - Trivy Report - 2026-10-24 19:32:11.313320219 -0400 EDT m=+2.321804531</h1>
+    <h1>user-isolation-kustomize.yaml - Trivy Report - 2026-10-24 20:05:37.133768535 -0400 EDT m=+1.542659740</h1>
     <table>
       <tr class="group-header"><th colspan="6">kubernetes</th></tr>
       <tr><th colspan="6">No Vulnerabilities found</th></tr>
@@ -91,18 +91,6 @@
         <th>Check</th>
         <th>Severity</th>
         <th>Message</th>
-      </tr>
-      <tr class="severity-MEDIUM">
-        <td class="misconf-type">Kubernetes Security Check</td>
-        <td>KSV-0001</td>
-        <td class="misconf-check">Can elevate its own privileges</td>
-        <td class="severity">MEDIUM</td>
-        <td class="link" data-more-links="off"  style="white-space:normal;">
-          Container &#39;target&#39; of Deployment &#39;escape-target&#39; should set &#39;securityContext.allowPrivilegeEscalation&#39; to false
-          <br>
-            <a href="https://avd.aquasec.com/misconfig/ksv-0001">https://avd.aquasec.com/misconfig/ksv-0001</a>
-          </br>
-        </td>
       </tr>
       <tr class="severity-LOW">
         <td class="misconf-type">Kubernetes Security Check</td>
@@ -122,21 +110,9 @@
         <td class="misconf-check">Default capabilities: some containers do not drop any</td>
         <td class="severity">LOW</td>
         <td class="link" data-more-links="off"  style="white-space:normal;">
-          Container &#39;target&#39; of &#39;deployment&#39; &#39;escape-target&#39; in &#39;escape-seccomp&#39; namespace should set securityContext.capabilities.drop
+          Container &#39;target&#39; of &#39;deployment&#39; &#39;escape-target&#39; in &#39;escape-user-isolation&#39; namespace should set securityContext.capabilities.drop
           <br>
             <a href="https://avd.aquasec.com/misconfig/ksv-0004">https://avd.aquasec.com/misconfig/ksv-0004</a>
-          </br>
-        </td>
-      </tr>
-      <tr class="severity-MEDIUM">
-        <td class="misconf-type">Kubernetes Security Check</td>
-        <td>KSV-0012</td>
-        <td class="misconf-check">Runs as root user</td>
-        <td class="severity">MEDIUM</td>
-        <td class="link" data-more-links="off"  style="white-space:normal;">
-          Container &#39;target&#39; of Deployment &#39;escape-target&#39; should set &#39;securityContext.runAsNonRoot&#39; to true
-          <br>
-            <a href="https://avd.aquasec.com/misconfig/ksv-0012">https://avd.aquasec.com/misconfig/ksv-0012</a>
           </br>
         </td>
       </tr>
@@ -176,27 +152,27 @@
           </br>
         </td>
       </tr>
-      <tr class="severity-MEDIUM">
+      <tr class="severity-LOW">
         <td class="misconf-type">Kubernetes Security Check</td>
-        <td>KSV-0022</td>
-        <td class="misconf-check">Specific capabilities added</td>
-        <td class="severity">MEDIUM</td>
+        <td>KSV-0030</td>
+        <td class="misconf-check">Runtime/Default Seccomp profile not set</td>
+        <td class="severity">LOW</td>
         <td class="link" data-more-links="off"  style="white-space:normal;">
-          Container &#39;target&#39; of Deployment &#39;escape-target&#39; should not set &#39;securityContext.capabilities.add&#39;
+          Either Pod or Container should set &#39;securityContext.seccompProfile.type&#39; to &#39;RuntimeDefault&#39;
           <br>
-            <a href="https://avd.aquasec.com/misconfig/ksv-0022">https://avd.aquasec.com/misconfig/ksv-0022</a>
+            <a href="https://avd.aquasec.com/misconfig/ksv-0030">https://avd.aquasec.com/misconfig/ksv-0030</a>
           </br>
         </td>
       </tr>
-      <tr class="severity-LOW">
+      <tr class="severity-MEDIUM">
         <td class="misconf-type">Kubernetes Security Check</td>
-        <td>KSV-0105</td>
-        <td class="misconf-check">Containers must not set runAsUser to 0</td>
-        <td class="severity">LOW</td>
+        <td>KSV-0104</td>
+        <td class="misconf-check">Seccomp policies disabled</td>
+        <td class="severity">MEDIUM</td>
         <td class="link" data-more-links="off"  style="white-space:normal;">
-          securityContext.runAsUser should be set to a value greater than 0
+          container &#34;target&#34; of deployment &#34;escape-target&#34; in &#34;escape-user-isolation&#34; namespace should specify a seccomp profile
           <br>
-            <a href="https://avd.aquasec.com/misconfig/ksv-0105">https://avd.aquasec.com/misconfig/ksv-0105</a>
+            <a href="https://avd.aquasec.com/misconfig/ksv-0104">https://avd.aquasec.com/misconfig/ksv-0104</a>
           </br>
         </td>
       </tr>
@@ -209,30 +185,6 @@
           container should drop all
           <br>
             <a href="https://avd.aquasec.com/misconfig/ksv-0106">https://avd.aquasec.com/misconfig/ksv-0106</a>
-          </br>
-        </td>
-      </tr>
-      <tr class="severity-HIGH">
-        <td class="misconf-type">Kubernetes Security Check</td>
-        <td>KSV-0118</td>
-        <td class="misconf-check">Default security context configured</td>
-        <td class="severity">HIGH</td>
-        <td class="link" data-more-links="off"  style="white-space:normal;">
-          deployment escape-target in escape-seccomp namespace is using the default security context, which allows root privileges
-          <br>
-            <a href="https://avd.aquasec.com/misconfig/ksv-0118">https://avd.aquasec.com/misconfig/ksv-0118</a>
-          </br>
-        </td>
-      </tr>
-      <tr class="severity-HIGH">
-        <td class="misconf-type">Kubernetes Security Check</td>
-        <td>KSV-0119</td>
-        <td class="misconf-check">NET_RAW capability added</td>
-        <td class="severity">HIGH</td>
-        <td class="link" data-more-links="off"  style="white-space:normal;">
-          container target of deployment escape-target in escape-seccomp namespace should not include &#39;NET_RAW&#39; in securityContext.capabilities.add
-          <br>
-            <a href="https://avd.aquasec.com/misconfig/ksv-0119">https://avd.aquasec.com/misconfig/ksv-0119</a>
           </br>
         </td>
       </tr>

@@ -1,7 +1,7 @@
 Container-escape evaluation report
 Profile: user-isolation
 Runtime rounds: 3
-Created (UTC): 20261024T232857Z
+Created (UTC): 20261025T000531Z
 Static audits and Trivy run once; readiness and in-pod checks run each round.
 Each command's complete stdout and stderr follows without filtering.
 
@@ -21,16 +21,16 @@ SYSCALLS and the SECCOMP control read the same field; RUNTIME-INFO is the servic
 ===== BEGIN trivy-scan.sh (user-isolation) =====
 Trivy evaluation report
 Profile: user-isolation
-Created (UTC): 20261024T232859Z
+Created (UTC): 20261025T000533Z
 Scope: Kubernetes configuration plus workload image vulnerabilities
-HTML configuration report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-user-isolation-20261024T232859Z.html
-HTML image report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-user-isolation-20261024T232859Z.html
+HTML configuration report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-user-isolation-20261025T000533Z.html
+HTML image report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-user-isolation-20261025T000533Z.html
 
 ===== CONFIGURATION SCAN: /home/madmin/Downloads/CAP5150_Project_Container_Escape/environment/overlays/user-isolation =====
-2026-10-24T19:29:00-04:00	INFO	[misconfig] Misconfiguration scanning is enabled
-2026-10-24T19:29:00-04:00	INFO	[checks-client] No downloadable checks were loaded as --skip-check-update is enabled, loading from existing cache...
-2026-10-24T19:29:00-04:00	ERROR	[misconfig] Falling back to embedded checks	err="failed to check cache: cache does not exist at \"/home/madmin/.cache/trivy/policy/content\""
-2026-10-24T19:29:02-04:00	INFO	Detected config files	num=1
+2026-10-24T20:05:33-04:00	INFO	[misconfig] Misconfiguration scanning is enabled
+2026-10-24T20:05:33-04:00	INFO	[checks-client] No downloadable checks were loaded as --skip-check-update is enabled, loading from existing cache...
+2026-10-24T20:05:33-04:00	ERROR	[misconfig] Falling back to embedded checks	err="failed to check cache: cache does not exist at \"/home/madmin/.cache/trivy/policy/content\""
+2026-10-24T20:05:35-04:00	INFO	Detected config files	num=1
 
 Report Summary
 
@@ -50,13 +50,13 @@ Tests: 107 (SUCCESSES: 99, FAILURES: 8)
 Failures: 8 (UNKNOWN: 0, LOW: 6, MEDIUM: 1, HIGH: 1, CRITICAL: 0)
 
 KSV-0003 (LOW): Container 'target' of Deployment 'escape-target' should add 'ALL' to 'securityContext.capabilities.drop'
-═══════════════════════════════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 The container should drop all default capabilities and add only those that are needed for its execution.
 
 See https://avd.aquasec.com/misconfig/ksv-0003
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
  user-isolation-kustomize.yaml:47-79
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   47 ┌       - command:
   48 │         - sh
   49 │         - -c
@@ -67,17 +67,17 @@ See https://avd.aquasec.com/misconfig/ksv-0003
   54 │           done
   55 └         env:
   ..   
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
 KSV-0004 (LOW): Container 'target' of 'deployment' 'escape-target' in 'escape-user-isolation' namespace should set securityContext.capabilities.drop
-═══════════════════════════════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 Security best practices require containers to run with minimal required capabilities.
 
 See https://avd.aquasec.com/misconfig/ksv-0004
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
  user-isolation-kustomize.yaml:47-79
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   47 ┌       - command:
   48 │         - sh
   49 │         - -c
@@ -88,17 +88,17 @@ See https://avd.aquasec.com/misconfig/ksv-0004
   54 │           done
   55 └         env:
   ..   
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
 KSV-0014 (HIGH): Container 'target' of Deployment 'escape-target' should set 'securityContext.readOnlyRootFilesystem' to true
-═══════════════════════════════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 An immutable root file system prevents applications from writing to their local disk. This can limit intrusions, as attackers will not be able to tamper with the file system or write foreign executables to disk.
 
 See https://avd.aquasec.com/misconfig/ksv-0014
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
  user-isolation-kustomize.yaml:47-79
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   47 ┌       - command:
   48 │         - sh
   49 │         - -c
@@ -109,17 +109,17 @@ See https://avd.aquasec.com/misconfig/ksv-0014
   54 │           done
   55 └         env:
   ..   
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
 KSV-0020 (LOW): Container 'target' of Deployment 'escape-target' should set 'securityContext.runAsUser' > 10000
-═══════════════════════════════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 Force the container to run with user ID > 10000 to avoid conflicts with the host’s user table.
 
 See https://avd.aquasec.com/misconfig/ksv-0020
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
  user-isolation-kustomize.yaml:47-79
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   47 ┌       - command:
   48 │         - sh
   49 │         - -c
@@ -130,17 +130,17 @@ See https://avd.aquasec.com/misconfig/ksv-0020
   54 │           done
   55 └         env:
   ..   
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
 KSV-0021 (LOW): Container 'target' of Deployment 'escape-target' should set 'securityContext.runAsGroup' > 10000
-═══════════════════════════════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 Force the container to run with group ID > 10000 to avoid conflicts with the host’s user table.
 
 See https://avd.aquasec.com/misconfig/ksv-0021
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
  user-isolation-kustomize.yaml:47-79
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   47 ┌       - command:
   48 │         - sh
   49 │         - -c
@@ -151,17 +151,17 @@ See https://avd.aquasec.com/misconfig/ksv-0021
   54 │           done
   55 └         env:
   ..   
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
 KSV-0030 (LOW): Either Pod or Container should set 'securityContext.seccompProfile.type' to 'RuntimeDefault'
-═══════════════════════════════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 According to pod security standard 'Seccomp', the RuntimeDefault seccomp profile must be required, or allow specific additional profiles.
 
 See https://avd.aquasec.com/misconfig/ksv-0030
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
  user-isolation-kustomize.yaml:47-79
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   47 ┌       - command:
   48 │         - sh
   49 │         - -c
@@ -172,17 +172,17 @@ See https://avd.aquasec.com/misconfig/ksv-0030
   54 │           done
   55 └         env:
   ..   
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
 KSV-0104 (MEDIUM): container "target" of deployment "escape-target" in "escape-user-isolation" namespace should specify a seccomp profile
-═══════════════════════════════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 A program inside the container can bypass Seccomp protection policies.
 
 See https://avd.aquasec.com/misconfig/ksv-0104
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
  user-isolation-kustomize.yaml:47-79
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   47 ┌       - command:
   48 │         - sh
   49 │         - -c
@@ -193,17 +193,17 @@ See https://avd.aquasec.com/misconfig/ksv-0104
   54 │           done
   55 └         env:
   ..   
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
 KSV-0106 (LOW): container should drop all
-═══════════════════════════════════════════════════════════════════════════════════════
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 Containers must drop ALL capabilities, and are only permitted to add back the NET_BIND_SERVICE capability.
 
 See https://avd.aquasec.com/misconfig/ksv-0106
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
  user-isolation-kustomize.yaml:47-79
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   47 ┌       - command:
   48 │         - sh
   49 │         - -c
@@ -214,45 +214,29 @@ See https://avd.aquasec.com/misconfig/ksv-0106
   54 │           done
   55 └         env:
   ..   
-───────────────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 
 Configuration scanner exit status: 0
 
 ===== IMAGE SCAN =====
-Image: alpine:3.20.10
-2026-10-24T19:29:04-04:00	INFO	[vuln] Vulnerability scanning is enabled
-2026-10-24T19:29:11-04:00	INFO	Detected OS	family="alpine" version="3.20.10"
-2026-10-24T19:29:11-04:00	INFO	[alpine] Detecting vulnerabilities...	os_version="3.20" repository="3.20" pkg_num=14
-2026-10-24T19:29:11-04:00	INFO	Number of language-specific files	num=0
-2026-10-24T19:29:11-04:00	WARN	Unable to get vulnerability details (CVE may be rejected)	err.message="failed to get vulnerability" err.err="failed to get vulnerability: no vulnerability details" err.time=2026-10-24T23:29:11.575212731Z err.trace="01M5R3YBWQN7C57K6ZE2K7C5D9" err.context.vuln_id="CVE-2026-107891" err.stacktrace="Oops: no vulnerability details\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:29 Config.GetVulnerability.func1()\n  --- at /home/runner/go/pkg/mod/go.etcd.io/bbolt@v1.5.0/db.go:953 DB.View()\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:25 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\nThrown: failed to get vulnerability\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:37 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:450 run()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:409 Run()"
-2026-10-24T19:29:11-04:00	WARN	Unable to get vulnerability details (CVE may be rejected)	err.message="failed to get vulnerability" err.err="failed to get vulnerability: no vulnerability details" err.time=2026-10-24T23:29:11.575857344Z err.trace="01M5R3YBWRNCBHJWQSVDNADMAX" err.context.vuln_id="CVE-2026-107891" err.stacktrace="Oops: no vulnerability details\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:29 Config.GetVulnerability.func1()\n  --- at /home/runner/go/pkg/mod/go.etcd.io/bbolt@v1.5.0/db.go:953 DB.View()\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:25 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\nThrown: failed to get vulnerability\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:37 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:450 run()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:409 Run()"
-2026-10-24T19:29:11-04:00	WARN	This OS version is no longer supported by the distribution	family="alpine" version="3.20.10"
-2026-10-24T19:29:11-04:00	WARN	The vulnerability detection may be insufficient because security updates are not provided
+Image: alpine:3.24.3
+2026-10-24T20:05:37-04:00	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-24T20:05:44-04:00	INFO	Detected OS	family="alpine" version="3.24.3"
+2026-10-24T20:05:44-04:00	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=16
+2026-10-24T20:05:44-04:00	INFO	Number of language-specific files	num=0
 
 Report Summary
 
-┌─────────────────────────────────┬────────┬─────────────────┐
-│             Target              │  Type  │ Vulnerabilities │
-├─────────────────────────────────┼────────┼─────────────────┤
-│ alpine:3.20.10 (alpine 3.20.10) │ alpine │        2        │
-└─────────────────────────────────┴────────┴─────────────────┘
+┌───────────────────────────────┬────────┬─────────────────┐
+│            Target             │  Type  │ Vulnerabilities │
+├───────────────────────────────┼────────┼─────────────────┤
+│ alpine:3.24.3 (alpine 3.24.3) │ alpine │        0        │
+└───────────────────────────────┴────────┴─────────────────┘
 Legend:
 - '-': Not scanned
 - '0': Clean (no security findings detected)
 
-
-alpine:3.20.10 (alpine 3.20.10)
-===============================
-Total: 2 (UNKNOWN: 2, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
-
-┌────────────┬─────────────────┬──────────┬────────┬───────────────────┬───────────────┬───────┐
-│  Library   │  Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version │ Title │
-├────────────┼─────────────────┼──────────┼────────┼───────────────────┼───────────────┼───────┤
-│ musl       │ CVE-2026-107891 │ UNKNOWN  │ fixed  │ 1.2.5-r3          │ 1.2.5-r4      │       │
-├────────────┤                 │          │        │                   │               ├───────┤
-│ musl-utils │                 │          │        │                   │               │       │
-└────────────┴─────────────────┴──────────┴────────┴───────────────────┴───────────────┴───────┘
 
 📣 [34mNotices:[0m
   - Version 0.76.1 of Trivy is now available, current version is 0.75.0
@@ -263,10 +247,10 @@ Image scanner exit status: 0
 
 Trivy findings are reported for review; --exit-code 0 prevents findings from being confused with scanner errors.
 This scan supplements, but does not replace, the Kubernetes escape-control tests.
-Trivy report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-user-isolation-20261024T232859Z.log
-Trivy summary: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-summary-user-isolation-20261024T232859Z.txt
-Trivy configuration HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-user-isolation-20261024T232859Z.html
-Trivy image HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-user-isolation-20261024T232859Z.html
+Trivy report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-user-isolation-20261025T000533Z.log
+Trivy summary: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-summary-user-isolation-20261025T000533Z.txt
+Trivy configuration HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-user-isolation-20261025T000533Z.html
+Trivy image HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-user-isolation-20261025T000533Z.html
 ===== END trivy-scan.sh (user-isolation) (exit 0) =====
 
 ===== BEGIN round-1/deployment-readiness =====
@@ -334,7 +318,7 @@ INFO [user-isolation] www-write (write to the /www emptyDir): ALLOWED
 PASS [user-isolation] www-write ALLOWED as expected for this profile
 INFO [user-isolation] runtime-socket (container runtime socket visible): DENIED - command terminated with exit code 1
 PASS [user-isolation] runtime-socket DENIED as expected for this profile
-INFO [user-isolation] unexpected mounts: /www <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/containers/target/d72a29ed (ext4) ; /etc/hostname <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/2849a3928b0053953b4c7abb488cecb1f52fd06cd9fbc7d320aaec6a1ad3b3e9/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/2849a3928b0053953b4c7abb488cecb1f52fd06cd9fbc7d320aaec6a1ad3b3e9/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
+INFO [user-isolation] unexpected mounts: /www <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/containers/target/e70b318b (ext4) ; /etc/hostname <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/18777c1d591cb72930211fe979de187ecda8c46ea48c9e04728e3ce4757e24ae/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/18777c1d591cb72930211fe979de187ecda8c46ea48c9e04728e3ce4757e24ae/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
 REVIEW [user-isolation] host-backed mounts present; confirm each is intended (see INFO line)
 INFO [user-isolation] visible PIDs: 5 (threshold 25)
 PASS [user-isolation] pod sees only its own processes (5 PIDs)
@@ -411,7 +395,7 @@ INFO [user-isolation] www-write (write to the /www emptyDir): ALLOWED
 PASS [user-isolation] www-write ALLOWED as expected for this profile
 INFO [user-isolation] runtime-socket (container runtime socket visible): DENIED - command terminated with exit code 1
 PASS [user-isolation] runtime-socket DENIED as expected for this profile
-INFO [user-isolation] unexpected mounts: /www <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/containers/target/d72a29ed (ext4) ; /etc/hostname <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/2849a3928b0053953b4c7abb488cecb1f52fd06cd9fbc7d320aaec6a1ad3b3e9/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/2849a3928b0053953b4c7abb488cecb1f52fd06cd9fbc7d320aaec6a1ad3b3e9/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
+INFO [user-isolation] unexpected mounts: /www <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/containers/target/e70b318b (ext4) ; /etc/hostname <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/18777c1d591cb72930211fe979de187ecda8c46ea48c9e04728e3ce4757e24ae/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/18777c1d591cb72930211fe979de187ecda8c46ea48c9e04728e3ce4757e24ae/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
 REVIEW [user-isolation] host-backed mounts present; confirm each is intended (see INFO line)
 INFO [user-isolation] visible PIDs: 5 (threshold 25)
 PASS [user-isolation] pod sees only its own processes (5 PIDs)
@@ -488,7 +472,7 @@ INFO [user-isolation] www-write (write to the /www emptyDir): ALLOWED
 PASS [user-isolation] www-write ALLOWED as expected for this profile
 INFO [user-isolation] runtime-socket (container runtime socket visible): DENIED - command terminated with exit code 1
 PASS [user-isolation] runtime-socket DENIED as expected for this profile
-INFO [user-isolation] unexpected mounts: /www <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/b56cea5d-9cfb-4a75-9090-ee7ce2cc927f/containers/target/d72a29ed (ext4) ; /etc/hostname <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/2849a3928b0053953b4c7abb488cecb1f52fd06cd9fbc7d320aaec6a1ad3b3e9/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/2849a3928b0053953b4c7abb488cecb1f52fd06cd9fbc7d320aaec6a1ad3b3e9/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
+INFO [user-isolation] unexpected mounts: /www <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/d53d84bb-f154-48b5-a90c-124a89b74dca/containers/target/e70b318b (ext4) ; /etc/hostname <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/18777c1d591cb72930211fe979de187ecda8c46ea48c9e04728e3ce4757e24ae/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/18777c1d591cb72930211fe979de187ecda8c46ea48c9e04728e3ce4757e24ae/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
 REVIEW [user-isolation] host-backed mounts present; confirm each is intended (see INFO line)
 INFO [user-isolation] visible PIDs: 5 (threshold 25)
 PASS [user-isolation] pod sees only its own processes (5 PIDs)

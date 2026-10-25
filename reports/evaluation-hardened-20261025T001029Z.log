@@ -1,7 +1,7 @@
 Container-escape evaluation report
 Profile: hardened
 Runtime rounds: 3
-Created (UTC): 20261024T233355Z
+Created (UTC): 20261025T001029Z
 Static audits and Trivy run once; readiness and in-pod checks run each round.
 Each command's complete stdout and stderr follows without filtering.
 
@@ -21,16 +21,16 @@ SYSCALLS and the SECCOMP control read the same field; RUNTIME-INFO is the servic
 ===== BEGIN trivy-scan.sh (hardened) =====
 Trivy evaluation report
 Profile: hardened
-Created (UTC): 20261024T233357Z
+Created (UTC): 20261025T001031Z
 Scope: Kubernetes configuration plus workload image vulnerabilities
-HTML configuration report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-hardened-20261024T233357Z.html
-HTML image report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-hardened-20261024T233357Z.html
+HTML configuration report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-hardened-20261025T001031Z.html
+HTML image report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-hardened-20261025T001031Z.html
 
 ===== CONFIGURATION SCAN: /home/madmin/Downloads/CAP5150_Project_Container_Escape/environment/overlays/hardened =====
-2026-10-24T19:33:58-04:00	INFO	[misconfig] Misconfiguration scanning is enabled
-2026-10-24T19:33:58-04:00	INFO	[checks-client] No downloadable checks were loaded as --skip-check-update is enabled, loading from existing cache...
-2026-10-24T19:33:58-04:00	ERROR	[misconfig] Falling back to embedded checks	err="failed to check cache: cache does not exist at \"/home/madmin/.cache/trivy/policy/content\""
-2026-10-24T19:33:59-04:00	INFO	Detected config files	num=1
+2026-10-24T20:10:32-04:00	INFO	[misconfig] Misconfiguration scanning is enabled
+2026-10-24T20:10:32-04:00	INFO	[checks-client] No downloadable checks were loaded as --skip-check-update is enabled, loading from existing cache...
+2026-10-24T20:10:32-04:00	ERROR	[misconfig] Falling back to embedded checks	err="failed to check cache: cache does not exist at \"/home/madmin/.cache/trivy/policy/content\""
+2026-10-24T20:10:33-04:00	INFO	Detected config files	num=1
 
 Report Summary
 
@@ -46,39 +46,23 @@ Legend:
 Configuration scanner exit status: 0
 
 ===== IMAGE SCAN =====
-Image: alpine:3.20.10
-2026-10-24T19:34:01-04:00	INFO	[vuln] Vulnerability scanning is enabled
-2026-10-24T19:34:08-04:00	INFO	Detected OS	family="alpine" version="3.20.10"
-2026-10-24T19:34:08-04:00	INFO	[alpine] Detecting vulnerabilities...	os_version="3.20" repository="3.20" pkg_num=14
-2026-10-24T19:34:08-04:00	INFO	Number of language-specific files	num=0
-2026-10-24T19:34:08-04:00	WARN	Unable to get vulnerability details (CVE may be rejected)	err.message="failed to get vulnerability" err.err="failed to get vulnerability: no vulnerability details" err.time=2026-10-24T23:34:08.66909905Z err.trace="01M5R47E0YBC3SWNCTQ8ANVEF0" err.context.vuln_id="CVE-2026-107891" err.stacktrace="Oops: no vulnerability details\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:29 Config.GetVulnerability.func1()\n  --- at /home/runner/go/pkg/mod/go.etcd.io/bbolt@v1.5.0/db.go:953 DB.View()\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:25 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\nThrown: failed to get vulnerability\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:37 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:450 run()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:409 Run()"
-2026-10-24T19:34:08-04:00	WARN	Unable to get vulnerability details (CVE may be rejected)	err.message="failed to get vulnerability" err.err="failed to get vulnerability: no vulnerability details" err.time=2026-10-24T23:34:08.67114633Z err.trace="01M5R47E0ZE6MXVK2P90D72GQS" err.context.vuln_id="CVE-2026-107891" err.stacktrace="Oops: no vulnerability details\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:29 Config.GetVulnerability.func1()\n  --- at /home/runner/go/pkg/mod/go.etcd.io/bbolt@v1.5.0/db.go:953 DB.View()\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:25 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\nThrown: failed to get vulnerability\n  --- at /home/runner/go/pkg/mod/github.com/aquasecurity/trivy-db@v0.0.0-20261001090913-650c4091f951/pkg/db/vulnerability.go:37 Config.GetVulnerability()\n  --- at /home/runner/work/trivy/trivy/pkg/vulnerability/vulnerability.go:78 Client.FillInfo()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:183 Service.ScanTarget()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/local/service.go:126 Service.Scan()\n  --- at /home/runner/work/trivy/trivy/pkg/scan/service.go:63 Service.ScanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:710 runner.scan()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:302 runner.scanArtifact()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:219 runner.ScanImage()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:450 run()\n  --- at /home/runner/work/trivy/trivy/pkg/commands/artifact/run.go:409 Run()"
-2026-10-24T19:34:08-04:00	WARN	This OS version is no longer supported by the distribution	family="alpine" version="3.20.10"
-2026-10-24T19:34:08-04:00	WARN	The vulnerability detection may be insufficient because security updates are not provided
+Image: alpine:3.24.3
+2026-10-24T20:10:36-04:00	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-24T20:10:43-04:00	INFO	Detected OS	family="alpine" version="3.24.3"
+2026-10-24T20:10:43-04:00	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=16
+2026-10-24T20:10:43-04:00	INFO	Number of language-specific files	num=0
 
 Report Summary
 
-┌─────────────────────────────────┬────────┬─────────────────┐
-│             Target              │  Type  │ Vulnerabilities │
-├─────────────────────────────────┼────────┼─────────────────┤
-│ alpine:3.20.10 (alpine 3.20.10) │ alpine │        2        │
-└─────────────────────────────────┴────────┴─────────────────┘
+┌───────────────────────────────┬────────┬─────────────────┐
+│            Target             │  Type  │ Vulnerabilities │
+├───────────────────────────────┼────────┼─────────────────┤
+│ alpine:3.24.3 (alpine 3.24.3) │ alpine │        0        │
+└───────────────────────────────┴────────┴─────────────────┘
 Legend:
 - '-': Not scanned
 - '0': Clean (no security findings detected)
 
-
-alpine:3.20.10 (alpine 3.20.10)
-===============================
-Total: 2 (UNKNOWN: 2, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
-
-┌────────────┬─────────────────┬──────────┬────────┬───────────────────┬───────────────┬───────┐
-│  Library   │  Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version │ Title │
-├────────────┼─────────────────┼──────────┼────────┼───────────────────┼───────────────┼───────┤
-│ musl       │ CVE-2026-107891 │ UNKNOWN  │ fixed  │ 1.2.5-r3          │ 1.2.5-r4      │       │
-├────────────┤                 │          │        │                   │               ├───────┤
-│ musl-utils │                 │          │        │                   │               │       │
-└────────────┴─────────────────┴──────────┴────────┴───────────────────┴───────────────┴───────┘
 
 📣 [34mNotices:[0m
   - Version 0.76.1 of Trivy is now available, current version is 0.75.0
@@ -89,10 +73,10 @@ Image scanner exit status: 0
 
 Trivy findings are reported for review; --exit-code 0 prevents findings from being confused with scanner errors.
 This scan supplements, but does not replace, the Kubernetes escape-control tests.
-Trivy report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-hardened-20261024T233357Z.log
-Trivy summary: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-summary-hardened-20261024T233357Z.txt
-Trivy configuration HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-hardened-20261024T233357Z.html
-Trivy image HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-hardened-20261024T233357Z.html
+Trivy report: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-hardened-20261025T001031Z.log
+Trivy summary: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-summary-hardened-20261025T001031Z.txt
+Trivy configuration HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-config-hardened-20261025T001031Z.html
+Trivy image HTML: /home/madmin/Downloads/CAP5150_Project_Container_Escape/reports/trivy-image-hardened-20261025T001031Z.html
 ===== END trivy-scan.sh (hardened) (exit 0) =====
 
 ===== BEGIN round-1/deployment-readiness =====
@@ -160,7 +144,7 @@ INFO [hardened] www-write (write to the /www emptyDir): ALLOWED
 PASS [hardened] www-write ALLOWED as expected for this profile
 INFO [hardened] runtime-socket (container runtime socket visible): DENIED - command terminated with exit code 1
 PASS [hardened] runtime-socket DENIED as expected for this profile
-INFO [hardened] unexpected mounts: /www <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/containers/target/754165a5 (ext4) ; /etc/hostname <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/51b6d21fafe19e444faace1e9af129536dc88ca5db0e59282807dbd60ed474bc/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/51b6d21fafe19e444faace1e9af129536dc88ca5db0e59282807dbd60ed474bc/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
+INFO [hardened] unexpected mounts: /www <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/b8059bbd-2f19-468b-b37e-eb37fe49a57f/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/b8059bbd-2f19-468b-b37e-eb37fe49a57f/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/b8059bbd-2f19-468b-b37e-eb37fe49a57f/containers/target/3550ce93 (ext4) ; /etc/hostname <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/6ddec73a727c9da855d4713450a64b497b58a7646546643b7aa80db1ac0baa8f/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/6ddec73a727c9da855d4713450a64b497b58a7646546643b7aa80db1ac0baa8f/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
 REVIEW [hardened] host-backed mounts present; confirm each is intended (see INFO line)
 INFO [hardened] visible PIDs: 5 (threshold 25)
 PASS [hardened] pod sees only its own processes (5 PIDs)
@@ -237,7 +221,7 @@ INFO [hardened] www-write (write to the /www emptyDir): ALLOWED
 PASS [hardened] www-write ALLOWED as expected for this profile
 INFO [hardened] runtime-socket (container runtime socket visible): DENIED - command terminated with exit code 1
 PASS [hardened] runtime-socket DENIED as expected for this profile
-INFO [hardened] unexpected mounts: /www <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/containers/target/754165a5 (ext4) ; /etc/hostname <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/51b6d21fafe19e444faace1e9af129536dc88ca5db0e59282807dbd60ed474bc/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/51b6d21fafe19e444faace1e9af129536dc88ca5db0e59282807dbd60ed474bc/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
+INFO [hardened] unexpected mounts: /www <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/b8059bbd-2f19-468b-b37e-eb37fe49a57f/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/b8059bbd-2f19-468b-b37e-eb37fe49a57f/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/b8059bbd-2f19-468b-b37e-eb37fe49a57f/containers/target/3550ce93 (ext4) ; /etc/hostname <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/6ddec73a727c9da855d4713450a64b497b58a7646546643b7aa80db1ac0baa8f/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/6ddec73a727c9da855d4713450a64b497b58a7646546643b7aa80db1ac0baa8f/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
 REVIEW [hardened] host-backed mounts present; confirm each is intended (see INFO line)
 INFO [hardened] visible PIDs: 5 (threshold 25)
 PASS [hardened] pod sees only its own processes (5 PIDs)
@@ -314,7 +298,7 @@ INFO [hardened] www-write (write to the /www emptyDir): ALLOWED
 PASS [hardened] www-write ALLOWED as expected for this profile
 INFO [hardened] runtime-socket (container runtime socket visible): DENIED - command terminated with exit code 1
 PASS [hardened] runtime-socket DENIED as expected for this profile
-INFO [hardened] unexpected mounts: /www <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/kubelet/pods/4b244164-adfa-441b-a149-339803540488/containers/target/754165a5 (ext4) ; /etc/hostname <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/51b6d21fafe19e444faace1e9af129536dc88ca5db0e59282807dbd60ed474bc/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/a93bd050539c9a2d3c6004ea8917f3322f460c99aa2168f1b5ab4dae56518f51/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/51b6d21fafe19e444faace1e9af129536dc88ca5db0e59282807dbd60ed474bc/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
+INFO [hardened] unexpected mounts: /www <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/b8059bbd-2f19-468b-b37e-eb37fe49a57f/volumes/kubernetes.io~empty-dir/web-content (ext4) ; /etc/hosts <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/b8059bbd-2f19-468b-b37e-eb37fe49a57f/etc-hosts (ext4) ; /dev/termination-log <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/kubelet/pods/b8059bbd-2f19-468b-b37e-eb37fe49a57f/containers/target/3550ce93 (ext4) ; /etc/hostname <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/6ddec73a727c9da855d4713450a64b497b58a7646546643b7aa80db1ac0baa8f/hostname (ext4) ; /etc/resolv.conf <- /var/lib/docker/volumes/e4d2725e65002a74e1343632ade15efaa64c882db178c28c2da81ff6b24ede61/_data/lib/containerd/io.containerd.grpc.v1.cri/sandboxes/6ddec73a727c9da855d4713450a64b497b58a7646546643b7aa80db1ac0baa8f/resolv.conf (ext4) ; /sys/devices/virtual/dmi/id/product_name <- /product_name (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay) ; /sys/devices/virtual/dmi/id/product_uuid <- /product_uuid (overlay)
 REVIEW [hardened] host-backed mounts present; confirm each is intended (see INFO line)
 INFO [hardened] visible PIDs: 5 (threshold 25)
 PASS [hardened] pod sees only its own processes (5 PIDs)
