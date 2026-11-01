@@ -10,7 +10,7 @@ The following profiles were created to compare Kubernetes security configuration
 | Profile | Namespace | Main controls | Trivy Configuration Findings |
 | --- | --- | --- | --- |
 | `baseline` | `escape-baseline` | Root user, privilege escalation allowed, `NET_RAW`, unconfined Seccomp | 14 |
-| `user-isolation` | `escape-user-isolation` | UID/GID 1000, non-root, privilege escalation disabled | 9 |
+| `user-isolation` | `escape-user-isolation` | UID/GID 1000, non-root, privilege escalation disabled | 8 |
 | `capabilities` | `escape-capabilities` | All capabilities dropped; only `NET_BIND_SERVICE` added so the workload can bind to port 80 | 10 |
 | `seccomp` | `escape-seccomp` | RuntimeDefault Seccomp profile | 12 |
 | `hardened` | `escape-hardened` | Non-root, no escalation, all capabilities dropped, RuntimeDefault Seccomp, read-only root filesystem | 0 |
