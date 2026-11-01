@@ -97,7 +97,7 @@ The first six numbered scripts check the explicit categories. The seventh checks
 | `06-runtime-information.sh` | Runtime information | Service-account token automount is off and the token file is absent. |
 | `07-effective-security.sh` | Effective privilege controls | Reads UID/GID, Linux capability sets, `NoNewPrivs`, and Seccomp mode from the running process. |
 | `08-workload-functionality.sh` | Application compatibility | Confirms the HTTP response and expected scoped writable mount. |
-| '09-behavioral-probes.sh` | Behavioral checks | Check actual actions match what is expected by the configuration |
+| `09-behavioral-probes.sh` | Behavioral checks | Check actual actions match what is expected by the configuration |
 | `lib.sh` | Test support | Shared Kubernetes lookup and pod-exec helpers |
 
 
@@ -105,9 +105,9 @@ The first six numbered scripts check the explicit categories. The seventh checks
 ```
 .
 ├── README.md
+├── run-test-suite.sh
 ├── trivy-util-scan.sh
 ├── environment
-│   ├── README.md
 │   ├── base
 │   │   ├── deployment.yaml
 │   │   ├── kustomization.yaml
@@ -156,7 +156,6 @@ The first six numbered scripts check the explicit categories. The seventh checks
 │   │       ├── trivy-image.html
 │   │       └── trivy-image.log
 │   └── scripts
-│       ├── README.md
 │       ├── build-all.sh
 │       ├── build.sh
 │       ├── destroy-all.sh
@@ -164,7 +163,6 @@ The first six numbered scripts check the explicit categories. The seventh checks
 ├── init
 │   ├── init.sh
 │   └── scripts
-│       ├── TEMPLATE.sh
 │       ├── dependencies.sh
 │       ├── docker.sh
 │       ├── k9s.sh
@@ -172,30 +170,60 @@ The first six numbered scripts check the explicit categories. The seventh checks
 │       ├── kubectl.sh
 │       ├── python.sh
 │       ├── ssh.sh
+│       ├── TEMPLATE.sh
 │       ├── trivy.sh
 │       └── yq.sh
 ├── kind
-│   ├── README.md
 │   ├── cluster.yaml
 │   ├── create.sh
 │   └── destroy.sh
 ├── reports
-│   └── README.md
+│   ├── evaluation-baseline-20261025T002505Z.log
+│   ├── evaluation-capabilities-20261025T002752Z.log
+│   ├── evaluation-hardened-20261025T003104Z.log
+│   ├── evaluation-seccomp-20261025T002911Z.log
+│   ├── evaluation-summary-baseline-20261025T002505Z.txt
+│   ├── evaluation-summary-capabilities-20261025T002752Z.txt
+│   ├── evaluation-summary-hardened-20261025T003104Z.txt
+│   ├── evaluation-summary-seccomp-20261025T002911Z.txt
+│   ├── evaluation-summary-user-isolation-20261025T002633Z.txt
+│   ├── evaluation-user-isolation-20261025T002633Z.log
+│   ├── README.md
+│   ├── trivy-baseline-20261025T002507Z.log
+│   ├── trivy-capabilities-20261025T002754Z.log
+│   ├── trivy-config-baseline-20261025T002507Z.html
+│   ├── trivy-config-capabilities-20261025T002754Z.html
+│   ├── trivy-config-hardened-20261025T003106Z.html
+│   ├── trivy-config-seccomp-20261025T002913Z.html
+│   ├── trivy-config-user-isolation-20261025T002634Z.html
+│   ├── trivy-hardened-20261025T003106Z.log
+│   ├── trivy-image-baseline-20261025T002507Z.html
+│   ├── trivy-image-capabilities-20261025T002754Z.html
+│   ├── trivy-image-hardened-20261025T003106Z.html
+│   ├── trivy-image-seccomp-20261025T002913Z.html
+│   ├── trivy-image-user-isolation-20261025T002634Z.html
+│   ├── trivy-seccomp-20261025T002913Z.log
+│   ├── trivy-summary-baseline-20261025T002507Z.txt
+│   ├── trivy-summary-capabilities-20261025T002754Z.txt
+│   ├── trivy-summary-hardened-20261025T003106Z.txt
+│   ├── trivy-summary-seccomp-20261025T002913Z.txt
+│   ├── trivy-summary-user-isolation-20261025T002634Z.txt
+│   └── trivy-user-isolation-20261025T002634Z.log
 └── tests
-    ├── 01-host-filesystem.sh
-    ├── 02-host-processes.sh
-    ├── 03-host-network.sh
-    ├── 04-privileged-operations.sh
-    ├── 05-restricted-syscalls.sh
-    ├── 06-runtime-information.sh
-    ├── 07-effective-security.sh
-    ├── 08-workload-functionality.sh
-    ├── 09-behavioral-probe.sh
-    ├── README.md
-    ├── config-audit.sh
-    ├── configuration-audit.sh
-    ├── lib.sh
-    ├── run-all.sh
-    ├── run-report.sh
-    └── trivy-scan.sh
+    ├── 01-host-filesystem.sh
+    ├── 02-host-processes.sh
+    ├── 03-host-network.sh
+    ├── 04-privileged-operations.sh
+    ├── 05-restricted-syscalls.sh
+    ├── 06-runtime-information.sh
+    ├── 07-effective-security.sh
+    ├── 08-workload-functionality.sh
+    ├── 09-behavioral-probes.sh
+    ├── config-audit.sh
+    ├── lib.sh
+    ├── run-all.sh
+    ├── run-report.sh
+    └── trivy-scan.sh
+
+15 directories, 106 files
 ```
