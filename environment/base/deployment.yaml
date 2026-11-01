@@ -19,7 +19,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: target
-          image: alpine:3.20.10 # alpine:3.24.2
+          image: alpine:3.24.3
           imagePullPolicy: IfNotPresent
           command:
             - sh
