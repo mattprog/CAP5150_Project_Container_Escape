@@ -1,4 +1,9 @@
 # CAP5150_Project_Container_Escape
+
+## Results
+
+From running this lab on 10/25/2026, the results have been saved. It was run with no image vulnerabilities. Logs and outputted results match what were expected. They can be found in `./results` with the timestamp `20261025T00[2-3]*`.
+
 ## Evaluating the Effectiveness of Kubernetes Security Controls in Mitigating Container Escape
 
 This repository contains the implementation for the CAP 5150 Project involving container escape in cloud (Kubernetes) evironment.
